@@ -37,25 +37,33 @@ body{
 .sidebar{
     background:var(--color-moss-deep);
     color:var(--color-moss-light);
-    padding:72px 24px 32px;
+    padding:72px 28px;
 }
 
-.sidebar h1{
+.site-title{
     margin:0;
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
     font-size:2rem;
     font-weight:400;
-    line-height:1.15;
-    letter-spacing:.04em;
+    letter-spacing:.08em;
+    line-height:1.1;
+    text-transform:uppercase;
+}
+
+.site-country{
+    display:block;
+    margin-top:12px;
+    font-size:1rem;
+    letter-spacing:.22em;
+    opacity:.85;
 }
 
 .motto{
     margin-top:4rem;
     color:#e3c37b;
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-size:1rem;
-    line-height:1.5;
     font-style:italic;
+    line-height:1.6;
 }
 
 .motto cite{
@@ -63,83 +71,33 @@ body{
     margin-top:12px;
     color:var(--color-moss-light);
     font-style:normal;
-    font-size:.9rem;
+    font-size:.95rem;
 }
 
-.section-title{
+.links{
     margin-top:4rem;
-    margin-bottom:1rem;
-    color:#e3c37b;
-    font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-size:1.4rem;
 }
 
-.sidebar a{
+.links a{
     display:block;
-    margin-bottom:12px;
     color:var(--color-moss-light);
     text-decoration:none;
+    margin-bottom:18px;
+    font-size:1.05rem;
 }
 
-.sidebar a:hover{
+.links a:hover{
     text-decoration:underline;
 }
 
 .content{
-    display:flex;
-    flex-direction:column;
+    padding:72px 72px 90px;
 }
 
-.header{
-    background:var(--color-paper);
-    border-bottom:1px solid var(--color-divider);
-    padding:24px 40px;
-}
-
-.header h2{
-    margin:0;
-    color:var(--color-brown);
-    font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-weight:400;
-    font-size:2rem;
-}
-
-.article{
-    max-width:900px;
-    padding:48px 40px 80px;
-}
-
-.article p{
+.content p{
     max-width:82ch;
-}
-
-.article h3{
-    color:var(--color-brown);
-    font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-size:1.6rem;
-    font-weight:400;
-    margin-top:48px;
-}
-
-.linkbox{
-    margin:20px 0;
-    padding:18px 22px;
-    background:white;
-    border-left:4px solid #6b846d;
-}
-
-.linkbox strong{
-    display:block;
-    margin-bottom:8px;
-}
-
-.linkbox a{
-    color:#355944;
-    text-decoration:none;
-}
-
-.linkbox a:hover{
-    text-decoration:underline;
+    margin-top:0;
+    margin-bottom:1.5rem;
 }
 
 .note{
@@ -155,15 +113,11 @@ body{
     }
 
     .sidebar{
-        padding:32px 24px;
+        padding:36px 24px;
     }
 
-    .article{
-        padding:32px 24px;
-    }
-
-    .header{
-        padding:24px;
+    .content{
+        padding:36px 24px 60px;
     }
 }
 
@@ -176,37 +130,79 @@ body{
 
     <aside class="sidebar">
 
-        <h1>
-            Antikapitalista Liga<br>
-            Magyarország
+        <h1 class="site-title">
+            ANTIKAPITALISTA LIGA
+            <span class="site-country">MAGYARORSZÁG</span>
         </h1>
 
         <blockquote class="motto">
-            „Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani, amellyel létrehoztuk.”
+            „Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani,
+            amellyel létrehoztuk.”
             <cite>Albert Einstein</cite>
         </blockquote>
 
-        <div class="section-title">
-            Bekapcsolódás
+        <div class="links">
+
+            <a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
+                Előjelentkezési kérdőív
+            </a>
+
+            <a href="https://www.facebook.com/antikapitalista.liga/">
+                Facebook közösség
+            </a>
+
         </div>
-
-        <a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
-            Előjelentkezési kérdőív
-        </a>
-
-        <a href="https://www.facebook.com/antikapitalista.liga/">
-            Facebook közösség
-        </a>
 
     </aside>
 
-    <div class="content">
+    <main class="content">
 
-        <header class="header">
-            <h2>Bemutatkozás</h2>
-        </header>
+        <p>
+            Az Antikapitalista Liga kezdeményezése a jelenlegi fenntarthatatlan
+            gazdasági, társadalmi és kulturális berendezkedés alapjait kívánja
+            újragondolni, minden alkutól és megalkuvástól mentesen.
+        </p>
 
-        <main class="article">
+        <p>
+            Meggyőződésünk, hogy korunk válságai nem pusztán társadalmi,
+            politikai vagy gazdasági problémák, hanem mélyebben meghúzódó
+            zavarok következményei. E zavarok gyökere az élethez, annak
+            szelleméhez és szentségéhez való viszonyunk torzulásában
+            keresendő.
+        </p>
 
-            <p>
- 
+        <p>
+            A fennálló rend szokásos kritikája önmagában nem elegendő.
+            Olyan valódi alternatívára van szükség, amelynek talaján a
+            társadalmi, gazdasági és politikai kérdések egészére gyökeresen
+            más válaszok adhatók.
+        </p>
+
+        <p>
+            Ehhez olyan emberek közösségére van szükség, amely képes
+            előkészíteni, és szükség esetén végig is vinni az átmenetet
+            egy új korszak felé.
+        </p>
+
+        <p>
+            A részletes politikai program nem előre megírt dokumentumként áll
+            előttünk. A későbbiekben ezen alapokból, a közös tapasztalatokból,
+            az eszmecseréből és a közös munkából bontakozik majd ki.
+        </p>
+
+        <p>
+            Célunk azon társadalmi formák kutatása, megvitatása és képviselete,
+            amelyek hosszú távon fenntarthatók, és meghaladják a kapitalista
+            rend meghatározó szokványait és előfeltevéseit.
+        </p>
+
+        <p class="note">
+            A webhely jelenleg fejlesztés alatt áll.
+        </p>
+
+    </main>
+
+</div>
+
+</body>
+</html>
