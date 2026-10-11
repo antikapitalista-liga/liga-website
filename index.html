@@ -14,7 +14,7 @@
     --brown:#5a3c1e;
     --gold:#d7b46c;
     --text:#222222;
-    --line:#d6cbb8;
+    --line:#d5cab8;
 }
 
 *{
@@ -31,24 +31,33 @@ body{
 
 .wrapper{
     display:grid;
-    grid-template-columns:290px 1fr;
+    grid-template-columns:320px 1fr;
     min-height:100vh;
 }
 
 .sidebar{
     background:var(--sidebar);
+    padding:40px 20px;
+}
+
+.logo{
+    display:block;
+    width:100%;
+    max-width:260px;
+    margin:0 auto;
+    height:auto;
 }
 
 .content{
-    padding:70px 70px 90px;
     max-width:1000px;
+    padding:60px 70px 80px;
 }
 
 .site-title{
     margin:0;
     color:var(--brown);
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-size:3rem;
+    font-size:2.8rem;
     font-weight:300;
     letter-spacing:.12em;
     text-transform:uppercase;
@@ -56,20 +65,20 @@ body{
 }
 
 .site-country{
-    margin-top:8px;
+    margin-top:10px;
     color:var(--brown);
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-size:1.1rem;
+    font-size:1rem;
     letter-spacing:.35em;
     text-transform:uppercase;
 }
 
 .motto{
-    margin-top:40px;
-    max-width:700px;
+    margin-top:35px;
     color:var(--brown);
     font-style:italic;
     font-size:1.15rem;
+    max-width:720px;
 }
 
 .motto cite{
@@ -79,7 +88,7 @@ body{
 }
 
 .separator{
-    margin:40px 0;
+    margin:35px 0;
     border:none;
     border-top:1px solid var(--line);
 }
@@ -89,11 +98,11 @@ body{
 }
 
 .main-copy p{
-    margin-bottom:1.6rem;
+    margin-bottom:1.5rem;
 }
 
 .links{
-    margin-top:40px;
+    margin-top:30px;
 }
 
 .links a{
@@ -101,7 +110,7 @@ body{
     margin-bottom:18px;
     color:#304837;
     text-decoration:none;
-    font-size:1.1rem;
+    font-size:1.15rem;
     font-weight:600;
 }
 
@@ -110,16 +119,20 @@ body{
 }
 
 .closing{
-    margin-top:50px;
-    padding:34px;
-    border-left:5px solid var(--gold);
+    margin-top:45px;
+    padding:30px;
     background:#f7f3ea;
+    border-left:5px solid var(--gold);
 }
 
 .closing p{
     margin:0;
-    font-size:1.2rem;
-    line-height:1.8;
+    font-size:1.25rem;
+    line-height:1.9;
+}
+
+.closing p + p{
+    margin-top:1.3rem;
 }
 
 @media (max-width:900px){
@@ -129,19 +142,23 @@ body{
     }
 
     .sidebar{
-        height:40px;
+        text-align:center;
     }
 
     .content{
-        padding:36px 24px 60px;
+        padding:35px 24px 60px;
     }
 
     .site-title{
-        font-size:2.1rem;
+        font-size:2rem;
     }
 
     .site-country{
-        font-size:.95rem;
+        font-size:.9rem;
+    }
+
+    .closing p{
+        font-size:1.05rem;
     }
 }
 
@@ -152,7 +169,11 @@ body{
 
 <div class="wrapper">
 
-    <aside class="sidebar"></aside>
+    <aside class="sidebar">
+
+        ALMA-logo02-draft.png
+
+    </aside>
 
     <main class="content">
 
@@ -190,69 +211,4 @@ body{
             </p>
 
             <p>
-                A fennálló rend szokásos kritikája önmagában nem elegendő.
-                Olyan valódi alternatívára van szükség, amelynek talaján a
-                társadalmi, gazdasági és politikai kérdések egészére
-                gyökeresen más válaszok adhatók.
-            </p>
-
-            <p>
-                Ehhez olyan emberek közösségére van szükség, amely képes
-                előkészíteni, és szükség esetén végig is vinni az átmenetet
-                egy új korszak felé.
-            </p>
-
-            <p>
-                A részletes politikai program nem előre megírt dokumentumként
-                áll előttünk. A későbbiekben ezen alapokból, a közös
-                tapasztalatokból, az eszmecseréből és a közös munkából
-                bontakozik majd ki.
-            </p>
-
-            <p>
-                Célunk azon társadalmi formák kutatása, megvitatása és
-                képviselete, amelyek hosszú távon fenntarthatók, és
-                meghaladják a kapitalista rend meghatározó szokványait és
-                előfeltevéseit.
-            </p>
-
-        </div>
-
-        <hr class="separator">
-
-        <div class="links">
-
-            <a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
-                Előjelentkezési kérdőív
-            </a>
-
-            <a href="https://www.facebook.com/antikapitalista.liga/">
-                Facebook közösség
-            </a>
-
-        </div>
-
-        <div class="closing">
-
-            <p>
-                Az Antikapitalista Liga alapszellemisége szerint hiszünk az emberben,
-                ugyanakkor az emberi gyengeség számos formáját látva óvatosnak kell
-                lennünk, amikor egy ilyen kezdeményezést megalapozunk és útjára
-                bocsátunk.
-            </p>
-
-            <p style="margin-top:1.2rem;">
-                Az Antikapitalista Liga alaptörekvései közül az egyik a politikai
-                szféra újbóli felemelése, ami csak úgy fog menni, ha kapcsolódó
-                előítéleteinket félrerakva esélyt adunk magunknak a megkezdett
-                munkához.
-            </p>
-
-        </div>
-
-    </main>
-
-</div>
-
-</body>
-</html>
+                A fennálló rend szokásos 
