@@ -26,31 +26,31 @@ body{
     background:var(--paper);
     color:var(--text);
     font-family:"Segoe UI",sans-serif;
-    line-height:1.9;
+    line-height:1.75;
 }
 
 .wrapper{
     display:grid;
-    grid-template-columns:320px 1fr;
+    grid-template-columns:420px 1fr;
     min-height:100vh;
 }
 
 .sidebar{
     background:var(--sidebar);
-    padding:40px 24px;
     color:#eef3ef;
+    padding:40px 24px;
 }
 
 .logo{
     display:block;
     width:100%;
-    max-width:260px;
-    margin:0 auto 30px auto;
+    max-width:340px;
+    margin:0 auto 25px auto;
     height:auto;
 }
 
 .motto{
-    margin-top:20px;
+    margin-top:15px;
     color:#e3c37b;
     font-size:1rem;
     line-height:1.6;
@@ -62,14 +62,13 @@ body{
     margin-top:10px;
     color:#eef3ef;
     font-style:normal;
-    font-size:0.95rem;
 }
 
 .site-note{
-    margin-top:30px;
-    padding-top:16px;
-    border-top:1px solid rgba(255,255,255,0.15);
-    color:rgba(255,255,255,0.72);
+    margin-top:28px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.15);
+    color:rgba(255,255,255,.72);
     font-size:.9rem;
     font-style:italic;
     line-height:1.6;
@@ -81,10 +80,10 @@ body{
 
 .sidebar-links a{
     display:block;
-    margin-bottom:14px;
+    margin-bottom:16px;
     color:#eef3ef;
     text-decoration:none;
-    font-size:1rem;
+    font-size:1.05rem;
 }
 
 .sidebar-links a:hover{
@@ -92,15 +91,15 @@ body{
 }
 
 .content{
-    max-width:980px;
-    padding:60px 70px 80px;
+    max-width:1400px;
+    padding:35px 45px 40px;
 }
 
 .site-title{
     margin:0;
     color:var(--brown);
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
-    font-size:2.8rem;
+    font-size:3rem;
     font-weight:300;
     letter-spacing:.12em;
     text-transform:uppercase;
@@ -108,8 +107,8 @@ body{
 }
 
 .site-country{
-    margin-top:8px;
-    margin-bottom:40px;
+    margin-top:10px;
+    margin-bottom:25px;
     color:var(--brown);
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
     font-size:1rem;
@@ -117,40 +116,54 @@ body{
     text-transform:uppercase;
 }
 
+.main-copy{
+    max-width:1150px;
+}
+
 .main-copy p{
-    margin-bottom:1.5rem;
-    max-width:82ch;
+    margin-bottom:1.2rem;
 }
 
 .closing{
-    margin-top:50px;
-    padding:32px;
-    background:#f7f3ea;
-    border-left:5px solid var(--gold);
+    margin-top:35px;
+    padding:24px 28px;
+    background:#f6f1e8;
+    border-left:4px solid var(--gold);
 }
 
 .closing p{
     margin:0;
-    font-size:1.22rem;
-    line-height:1.9;
+    font-size:1.15rem;
+    line-height:1.75;
 }
 
 .closing p + p{
-    margin-top:1.2rem;
+    margin-top:1rem;
 }
 
-@media (max-width:900px){
+.signature{
+    margin-top:28px;
+    text-align:right;
+    color:#5a3c1e;
+    font-style:italic;
+}
+
+.signature span{
+    font-size:.95rem;
+}
+
+@media (max-width:1100px){
 
     .wrapper{
         grid-template-columns:1fr;
     }
 
-    .content{
-        padding:40px 24px 60px;
+    .sidebar{
+        text-align:center;
     }
 
-    .sidebar{
-        padding:30px 24px;
+    .content{
+        padding:30px 22px 40px;
     }
 
     .site-title{
@@ -162,7 +175,7 @@ body{
     }
 
     .closing p{
-        font-size:1.05rem;
+        font-size:1rem;
     }
 }
 
@@ -175,11 +188,12 @@ body{
 
     <aside class="sidebar">
 
-        ALMA-logo02-draft.png
+        <img src="ALMA-logo02-draft.png"
+             alt="Antikapitalista Liga logó"
+             class="logo">
 
         <div class="motto">
-            „Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani,
-            amellyel létrehoztuk.”
+        amellyel létrehoztuk.”
 
             <cite>Albert Einstein</cite>
         </div>
@@ -275,6 +289,18 @@ body{
                 ha kapcsolódó előítéleteinket félrerakva esélyt adunk
                 magunknak a megkezdett munkához.
             </p>
+
+            <div class="signature">
+
+                Horváth Tamás Gábor<br>
+
+                <span>Örökös Elnök</span>
+
+                <br><br>
+
+                Zámoly, 2026. augusztus
+
+            </div>
 
         </div>
 
