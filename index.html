@@ -9,11 +9,11 @@
 <style>
  
 :root{
---color-moss-deep:#314738;
---color-moss-light:#f0f3ef;
---color-paper:#f6f8f6;
---color-brown:#5a3c1e;
---color-divider:#d9e1dc;
+--moss-deep:#314738;
+--moss-light:#eef3ef;
+--paper:#f6f8f6;
+--brown:#5a3c1e;
+--divider:#d9e1dc;
 }
  
 *{
@@ -22,22 +22,22 @@ box-sizing:border-box;
  
 body{
 margin:0;
-background:var(--color-paper);
-color:#2f2f2f;
+background:var(--paper);
+color:#222;
 font-family:"Segoe UI",sans-serif;
-line-height:1.75;
+line-height:1.8;
 }
  
-.layout{
+.wrapper{
 display:grid;
 grid-template-columns:320px 1fr;
 min-height:100vh;
 }
  
 .sidebar{
-background:var(--color-moss-deep);
-color:var(--color-moss-light);
-padding:48px 32px;
+background:var(--moss-deep);
+color:var(--moss-light);
+padding:72px 24px 32px;
 }
  
 .sidebar h1{
@@ -45,72 +45,102 @@ margin:0;
 font-family:"Calibri Light","Segoe UI Light",sans-serif;
 font-size:2rem;
 font-weight:400;
-letter-spacing:.05em;
+letter-spacing:.04em;
 line-height:1.15;
 }
  
-.sidebar p{
-margin-top:2rem;
-opacity:.9;
+.sidebar .section-title{
+margin-top:120px;
+margin-bottom:24px;
+color:#e3c37b;
+font-family:"Calibri Light","Segoe UI Light",sans-serif;
+font-size:1.4rem;
 }
  
-.main{
-padding:48px 56px;
-max-width:980px;
+.sidebar a{
+display:block;
+margin-bottom:12px;
+color:var(--moss-light);
+text-decoration:none;
 }
  
-h2{
-margin-top:0;
-margin-bottom:.8rem;
-color:var(--color-brown);
+.sidebar a:hover{
+text-decoration:underline;
+}
+ 
+.content{
+display:flex;
+flex-direction:column;
+}
+ 
+.header{
+border-bottom:1px solid var(--divider);
+background:var(--paper);
+padding:24px 40px;
+}
+ 
+.header h2{
+margin:0;
+color:var(--brown);
 font-family:"Calibri Light","Segoe UI Light",sans-serif;
 font-weight:400;
 font-size:2rem;
 }
  
-.intro{
-margin-bottom:2rem;
-padding-bottom:1.5rem;
-border-bottom:1px solid var(--color-divider);
+.header p{
+margin:12px 0 0;
+color:var(--brown);
+font-style:italic;
 }
  
-.links{
-margin-top:3rem;
+.article{
+max-width:900px;
+padding:48px 40px 80px;
 }
  
-.links h3{
-color:var(--color-brown);
+.article p{
+max-width:80ch;
+}
+ 
+.article h3{
+margin-top:48px;
+margin-bottom:24px;
+color:var(--brown);
 font-family:"Calibri Light","Segoe UI Light",sans-serif;
+font-size:1.7rem;
 font-weight:400;
-font-size:1.4rem;
 }
  
-.link-box{
-margin:1rem 0;
-padding:1rem 1.25rem;
+.linkbox{
+margin:20px 0;
+padding:18px 22px;
 background:white;
 border-left:4px solid #6b846d;
 }
  
-a{
-color:#355944;
-text-decoration:none;
-font-weight:600;
+.linkbox strong{
+display:block;
+margin-bottom:8px;
 }
  
-a:hover{
+.linkbox a{
+color:#355944;
+text-decoration:none;
+}
+ 
+.linkbox a:hover{
 text-decoration:underline;
 }
  
 .note{
-margin-top:2rem;
+margin-top:48px;
 color:#666;
 font-style:italic;
 }
  
-@media (max-width: 900px){
+@media (max-width:900px){
  
-.layout{
+.wrapper{
 grid-template-columns:1fr;
 }
  
@@ -118,17 +148,25 @@ grid-template-columns:1fr;
 padding:32px 24px;
 }
  
-.main{
+.sidebar .section-title{
+margin-top:40px;
+}
+ 
+.article{
 padding:32px 24px;
+}
+ 
+.header{
+padding:24px;
 }
 }
  
 </style>
- 
 </head>
+ 
 <body>
  
-<div class="layout">
+<div class="wrapper">
  
 <aside class="sidebar">
  
@@ -137,17 +175,33 @@ Antikapitalista Liga<br>
 Magyarország
 </h1>
  
-<p>
-Gondolkodás, közösség, alternatívák.
-</p>
+<div class="section-title">
+Bekapcsolódás
+</div>
+ 
+<a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
+Előjelentkezési kérdőív
+</a>
+ 
+<a href="https://www.facebook.com/antikapitalista.liga/">
+Facebook közösség
+</a>
  
 </aside>
  
-<main class="main">
+<div class="content">
  
-<div class="intro">
+<header class="header">
  
 <h2>Bemutatkozás</h2>
+ 
+<p>
+Gondolkodás, közösség, alternatíva.
+</p>
+ 
+</header>
+ 
+<main class="article">
  
 <p>
 Az Antikapitalista Liga kezdeményezése a jelenlegi fenntarthatatlan
@@ -184,37 +238,7 @@ képviselete, amelyek hosszú távon fenntarthatók, és meghaladják
 a kapitalista rend meghatározó szokványait és előfeltevéseit.
 </p>
  
-</div>
+<h3>Kapcsolódás</h3>
  
-<section class="links">
- 
-<h3>Bekapcsolódás</h3>
- 
-<div class="link-box">
-<strong>Előjelentkezési kérdőív</strong><br>
-<a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
-A kérdőív megnyitása
-</a>
-</div>
- 
-<div class="link-box">
-<strong>Facebook közösség</strong><br>
-<a href="https://www.facebook.com/antikapitalista.liga/">
-Antikapitalista Liga a Facebookon
-</a>
-</div>
- 
-</section>
- 
-<p class="note">
-A webhely jelenleg fejlesztés alatt áll. A küldetés, az írások,
-az állásfoglalások és a közösségi felületek fokozatosan válnak
-elérhetővé.
-</p>
- 
-</main>
- 
-</div>
- 
-</body>
-</html>
+<div class="linkbox">
+<strong>Előjelentkezési kérdőív</strong>
