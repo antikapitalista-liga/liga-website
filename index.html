@@ -37,19 +37,62 @@ body{
 
 .sidebar{
     background:var(--sidebar);
-    padding:40px 20px;
+    padding:40px 24px;
+    color:#eef3ef;
 }
 
 .logo{
     display:block;
     width:100%;
     max-width:260px;
-    margin:0 auto;
+    margin:0 auto 30px auto;
     height:auto;
 }
 
+.motto{
+    margin-top:20px;
+    color:#e3c37b;
+    font-size:1rem;
+    line-height:1.6;
+    font-style:italic;
+}
+
+.motto cite{
+    display:block;
+    margin-top:10px;
+    color:#eef3ef;
+    font-style:normal;
+    font-size:0.95rem;
+}
+
+.site-note{
+    margin-top:30px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.15);
+    color:rgba(255,255,255,0.72);
+    font-size:.9rem;
+    font-style:italic;
+    line-height:1.6;
+}
+
+.sidebar-links{
+    margin-top:30px;
+}
+
+.sidebar-links a{
+    display:block;
+    margin-bottom:14px;
+    color:#eef3ef;
+    text-decoration:none;
+    font-size:1rem;
+}
+
+.sidebar-links a:hover{
+    text-decoration:underline;
+}
+
 .content{
-    max-width:1000px;
+    max-width:980px;
     padding:60px 70px 80px;
 }
 
@@ -65,7 +108,8 @@ body{
 }
 
 .site-country{
-    margin-top:10px;
+    margin-top:8px;
+    margin-bottom:40px;
     color:var(--brown);
     font-family:"Calibri Light","Segoe UI Light",sans-serif;
     font-size:1rem;
@@ -73,66 +117,26 @@ body{
     text-transform:uppercase;
 }
 
-.motto{
-    margin-top:35px;
-    color:var(--brown);
-    font-style:italic;
-    font-size:1.15rem;
-    max-width:720px;
-}
-
-.motto cite{
-    display:block;
-    margin-top:12px;
-    font-style:normal;
-}
-
-.separator{
-    margin:35px 0;
-    border:none;
-    border-top:1px solid var(--line);
-}
-
-.main-copy{
-    max-width:850px;
-}
-
 .main-copy p{
     margin-bottom:1.5rem;
-}
-
-.links{
-    margin-top:30px;
-}
-
-.links a{
-    display:block;
-    margin-bottom:18px;
-    color:#304837;
-    text-decoration:none;
-    font-size:1.15rem;
-    font-weight:600;
-}
-
-.links a:hover{
-    text-decoration:underline;
+    max-width:82ch;
 }
 
 .closing{
-    margin-top:45px;
-    padding:30px;
+    margin-top:50px;
+    padding:32px;
     background:#f7f3ea;
     border-left:5px solid var(--gold);
 }
 
 .closing p{
     margin:0;
-    font-size:1.25rem;
+    font-size:1.22rem;
     line-height:1.9;
 }
 
 .closing p + p{
-    margin-top:1.3rem;
+    margin-top:1.2rem;
 }
 
 @media (max-width:900px){
@@ -141,12 +145,12 @@ body{
         grid-template-columns:1fr;
     }
 
-    .sidebar{
-        text-align:center;
+    .content{
+        padding:40px 24px 60px;
     }
 
-    .content{
-        padding:35px 24px 60px;
+    .sidebar{
+        padding:30px 24px;
     }
 
     .site-title{
@@ -173,6 +177,31 @@ body{
 
         ALMA-logo02-draft.png
 
+        <div class="motto">
+            „Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani,
+            amellyel létrehoztuk.”
+
+            <cite>Albert Einstein</cite>
+        </div>
+
+        <div class="site-note">
+            A webhely jelenleg fejlesztés alatt áll.
+            A küldetés, az írások, az állásfoglalások és a közösségi
+            felületek fokozatosan válnak elérhetővé.
+        </div>
+
+        <div class="sidebar-links">
+
+            <a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
+                Előjelentkezési kérdőív
+            </a>
+
+            <a href="https://www.facebook.com/antikapitalista.liga/">
+                Facebook közösség
+            </a>
+
+        </div>
+
     </aside>
 
     <main class="content">
@@ -185,30 +214,73 @@ body{
             MAGYARORSZÁG
         </div>
 
-        <div class="motto">
-            „Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani,
-            amellyel létrehoztuk.”
-
-            <cite>Albert Einstein</cite>
-        </div>
-
-        <hr class="separator">
-
         <div class="main-copy">
 
             <p>
-                Az Antikapitalista Liga kezdeményezése a jelenlegi fenntarthatatlan
-                gazdasági, társadalmi és kulturális berendezkedés alapjait kívánja
-                újragondolni, minden alkutól és megalkuvástól mentesen.
+                Az Antikapitalista Liga kezdeményezése a jelenlegi
+                fenntarthatatlan gazdasági, társadalmi és kulturális
+                berendezkedés alapjait kívánja újragondolni,
+                minden alkutól és megalkuvástól mentesen.
             </p>
 
             <p>
                 Meggyőződésünk, hogy korunk válságai nem pusztán társadalmi,
-                politikai vagy gazdasági problémák, hanem mélyebben meghúzódó
-                zavarok következményei. E zavarok gyökere az élethez, annak
-                szelleméhez és szentségéhez való viszonyunk torzulásában
-                keresendő.
+                politikai vagy gazdasági problémák, hanem mélyebben
+                meghúzódó zavarok következményei. E zavarok gyökere
+                az élethez, annak szelleméhez és szentségéhez való
+                viszonyunk torzulásában keresendő.
             </p>
 
             <p>
-                A fennálló rend szokásos 
+                A fennálló rend szokásos kritikája önmagában nem elegendő.
+                Olyan valódi alternatívára van szükség, amelynek talaján
+                a társadalmi, gazdasági és politikai kérdések egészére
+                gyökeresen más válaszok adhatók.
+            </p>
+
+            <p>
+                Ehhez olyan emberek közösségére van szükség, amely képes
+                előkészíteni, és szükség esetén végig is vinni az átmenetet
+                egy új korszak felé.
+            </p>
+
+            <p>
+                A részletes politikai program nem előre megírt dokumentumként
+                áll előttünk. A későbbiekben ezen alapokból, a közös
+                tapasztalatokból, az eszmecseréből és a közös munkából
+                bontakozik majd ki.
+            </p>
+
+            <p>
+                Célunk azon társadalmi formák kutatása, megvitatása és
+                képviselete, amelyek hosszú távon fenntarthatók, és
+                meghaladják a kapitalista rend meghatározó szokványait
+                és előfeltevéseit.
+            </p>
+
+        </div>
+
+        <div class="closing">
+
+            <p>
+                Az Antikapitalista Liga alapszellemisége szerint hiszünk
+                az emberben, ugyanakkor az emberi gyengeség számos formáját
+                látva óvatosnak kell lennünk, amikor egy ilyen kezdeményezést
+                megalapozunk és útjára bocsátunk.
+            </p>
+
+            <p>
+                Az Antikapitalista Liga alaptörekvései közül az egyik a
+                politikai szféra újbóli felemelése, ami csak úgy fog menni,
+                ha kapcsolódó előítéleteinket félrerakva esélyt adunk
+                magunknak a megkezdett munkához.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
