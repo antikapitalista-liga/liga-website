@@ -1,0 +1,70 @@
+---
+interface Props {
+	lang?: "hu" | "en";
+}
+
+const { lang = "hu" } = Astro.props;
+const organization =
+	lang === "en" ? "Anticapitalist League Hungary" : "Antikapitalista Liga Magyarország";
+---
+<div class="site-identity">
+	<p class="site-name">{organization}</p>
+	<blockquote class="site-motto">
+		<p>„Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani, amellyel létrehoztuk.”</p>
+		<cite>Albert Einstein</cite>
+	</blockquote>
+</div>
+
+<style>
+	.site-name {
+		max-width: none;
+		margin: 0;
+		color: inherit;
+		font-family: "Calibri Light", "Segoe UI Light", sans-serif;
+		font-size: 2.4rem;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		line-height: 1.08;
+	}
+
+	.site-motto {
+		margin: 24px 0 0;
+		padding: 0;
+		color: inherit;
+		font-size: 0.95rem;
+		font-style: italic;
+		line-height: 1.5;
+	}
+
+	.site-motto p {
+		max-width: none;
+		margin: 0 0 8px;
+	}
+
+	.site-motto cite {
+		font-size: 0.85rem;
+		font-style: normal;
+		opacity: 0.82;
+	}
+
+	@media (max-width: 760px) {
+		.site-name {
+			font-size: 1.55rem;
+			letter-spacing: 0.06em;
+		}
+
+		.site-motto {
+			margin-top: 8px;
+			font-size: 0.82rem;
+			line-height: 1.35;
+		}
+
+		.site-motto p {
+			margin-bottom: 2px;
+		}
+
+		.site-motto cite {
+			font-size: 0.75rem;
+		}
+	}
+</style>

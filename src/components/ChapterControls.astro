@@ -1,0 +1,48 @@
+---
+interface Props {
+	previous?: string;
+	next?: string;
+}
+
+const { previous, next } = Astro.props;
+---
+<nav class="chapter-controls" aria-label="Fejezetnavigáció">
+	{previous ? (
+		<a class="chapter-control" href={`#${previous}`}>Ugrás az előző fejezetre</a>
+	) : (
+		<span class="chapter-control is-disabled" aria-disabled="true">Ugrás az előző fejezetre</span>
+	)}
+	{next ? (
+		<a class="chapter-control" href={`#${next}`}>Ugrás a következő fejezetre</a>
+	) : (
+		<span class="chapter-control is-disabled" aria-disabled="true">Ugrás a következő fejezetre</span>
+	)}
+	<a class="chapter-control" href="#top-of-page">A dokumentum elejére</a>
+</nav>
+
+<style>
+	.chapter-controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 18px;
+		margin: 0 0 20px;
+	}
+
+	.chapter-control {
+		display: inline;
+		color: #5a3c1e;
+		font: inherit;
+		font-size: 0.85rem;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	a.chapter-control:hover {
+		color: #3d2916;
+	}
+
+	.chapter-control.is-disabled {
+		color: #8e8983;
+		text-decoration: none;
+	}
+</style>

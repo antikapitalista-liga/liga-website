@@ -1,0 +1,282 @@
+---
+import Navigation from "../components/Navigation.astro";
+import SiteIdentity from "../components/SiteIdentity.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	lang?: "hu" | "en";
+	frame?: "brand-rail" | "wide";
+}
+
+const { title, description, lang = "hu", frame = "brand-rail" } = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<Navigation wide={frame === "wide"} />
+		{frame === "wide" ? (
+			<slot />
+		) : (
+			<div class="site-layout">
+				<aside class="site-brand" aria-label={lang === "en" ? "Organization" : "Szervezet"}>
+					<SiteIdentity lang={lang} />
+				</aside>
+				<div class="site-content">
+					<slot />
+				</div>
+			</div>
+		)}
+	</body>
+</html>
+
+<style>
+	:global(html),
+	:global(body) {
+		margin: 0;
+		min-height: 100%;
+	}
+
+	:global(html) {
+		--color-moss-deep: #35483a;
+		--color-moss-light: #f2f1e9;
+		--color-gold-brown: #8c6a32;
+		background: #f6f8f6;
+		color: #27322f;
+		font-family: "Aptos", "Segoe UI", sans-serif;
+		line-height: 1.65;
+	}
+
+	:global(body) {
+		--site-nav-height: 62px;
+		min-height: 100vh;
+	}
+
+	.site-layout {
+		display: grid;
+		grid-template-columns: minmax(260px, 25vw) minmax(0, 1fr);
+		gap: 32px;
+		width: min(1440px, calc(100% - 32px));
+		margin: 24px auto 0;
+	}
+
+	.site-brand {
+		position: sticky;
+		top: calc(var(--site-nav-height) + 24px);
+		align-self: start;
+		box-sizing: border-box;
+		min-height: calc(100vh - var(--site-nav-height) - 48px);
+		padding: 24px;
+		border-radius: 4px;
+		background: var(--color-moss-deep);
+		color: var(--color-moss-light);
+	}
+
+	.site-content {
+		min-width: 0;
+	}
+
+	.site-content > header {
+		padding-block: 24px 20px;
+	}
+
+	.site-content > main {
+		padding-bottom: 56px;
+	}
+
+	:global(body > nav) {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		border-bottom: 1px solid #d9e1dc;
+		background: #fff;
+	}
+
+	:global(body > nav ul) {
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 18px;
+		width: min(960px, calc(100% - 48px));
+		margin: 0 auto;
+		padding: 10px 0;
+		list-style: none;
+	}
+
+	:global(body > nav.site-navigation-wide) {
+		border-bottom-color: transparent;
+		background: linear-gradient(
+			to right,
+			var(--color-moss-deep) 0,
+			var(--color-moss-deep) calc(16px + clamp(250px, 20vw, 360px)),
+			#fff calc(16px + clamp(250px, 20vw, 360px)),
+			#fff 100%
+		);
+	}
+
+	:global(body > nav.site-navigation-wide::after) {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: calc(16px + clamp(250px, 20vw, 360px));
+		height: 1px;
+		background: #d9e1dc;
+		content: "";
+		pointer-events: none;
+	}
+
+	:global(body > nav.site-navigation-wide ul) {
+		width: auto;
+		max-width: none;
+		margin: 0 32px 0 calc(16px + clamp(250px, 20vw, 360px) + 24px);
+	}
+
+	:global(body > nav a) {
+		display: inline-block;
+		padding: 8px 0;
+		color: #3d5f54;
+		font-size: 0.95rem;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	:global(body > nav a:hover) {
+		color: #203f36;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+	}
+
+	:global(body > nav a[aria-current="page"]) {
+		color: var(--color-gold-brown);
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 5px;
+	}
+
+	:global(a:focus-visible) {
+		outline: 3px solid #98b8aa;
+		outline-offset: 3px;
+	}
+
+	:global(body > header),
+	:global(body > main),
+	:global(body > footer) {
+		box-sizing: border-box;
+		width: min(960px, calc(100% - 48px));
+		margin-inline: auto;
+	}
+
+	:global(body > header) {
+		padding-block: 48px 24px;
+	}
+
+	:global(body > main) {
+		padding-bottom: 56px;
+	}
+
+	:global(h1),
+	:global(h2) {
+		color: #5a3c1e;
+		font-family: "Calibri Light", "Segoe UI Light", sans-serif;
+		font-weight: 400;
+		line-height: 1.2;
+	}
+
+	:global(h1) {
+		margin: 0 0 20px;
+		font-size: 2.5rem;
+	}
+
+	:global(h2) {
+		margin: 32px 0 12px;
+		font-size: 1.7rem;
+	}
+
+	:global(p) {
+		max-width: 72ch;
+		margin: 0 0 1.15em;
+	}
+
+	:global(article) {
+		margin-top: 28px;
+		padding-top: 8px;
+		border-top: 1px solid #d9e1dc;
+	}
+
+	:global(article > p:first-child) {
+		margin-bottom: 8px;
+		color: #5d7068;
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+
+	@media (max-width: 600px) {
+		:global(body > nav ul),
+		:global(body > header),
+		:global(body > main),
+		:global(body > footer) {
+			width: calc(100% - 32px);
+		}
+
+		:global(body > nav ul) {
+			gap: 2px 14px;
+		}
+
+		:global(body > nav a) {
+			font-size: 0.9rem;
+		}
+
+		:global(body > header) {
+			padding-block: 36px 20px;
+		}
+
+		:global(h1) {
+			font-size: 2rem;
+		}
+
+		:global(h2) {
+			font-size: 1.45rem;
+		}
+	}
+
+	@media (max-width: 760px) {
+		:global(body) {
+			--site-nav-height: 103px;
+		}
+
+		.site-layout {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 16px;
+		}
+
+		.site-brand {
+			position: sticky;
+			top: var(--site-nav-height);
+			z-index: 15;
+			min-height: 0;
+			padding: 12px 16px;
+		}
+
+		:global(body > nav.site-navigation-wide) {
+			border-bottom-color: #d9e1dc;
+			background: #fff;
+		}
+
+		:global(body > nav.site-navigation-wide::after) {
+			display: none;
+		}
+
+		:global(body > nav.site-navigation-wide ul) {
+			width: calc(100% - 32px);
+			margin-inline: auto;
+		}
+
+	}
+</style>
