@@ -4,20 +4,249 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 <MainLayout
 	title="Antikapitalista Liga Magyarország"
-	description="Az Antikapitalista Liga Magyarország bemutatkozása, gondolatai és közösségi kezdeményezései."
+	description="Az Antikapitalista Liga Magyarország bemutatkozása és alapvető küldetése."
+	frame="wide"
 >
-	<header>
-		<h1>Antikapitalista Liga Magyarország</h1>
-		<p>
-			Az Antikapitalista Liga Magyarország egy alakuló közösségi és politikai kezdeményezés.
-			Azért jött létre, hogy az emberi méltóság, a társadalmi együttműködés és a
-			gazdasági viszonyok kérdéseiről közösen gondolkodjunk.
-		</p>
-		<p>
-			A részletes program még formálódik. A honlap ennek a folyamatnak ad teret:
-			gondolatok, elemzések és közösségi kezdeményezések gyűjtőhelye kíván lenni.
-			A társadalom megértésekor az emberi méltóság, az erkölcsi felelősség és a
-			közösségi élet kérdéseit is szem előtt tartjuk.
-		</p>
-	</header>
+	<main class="home-shell">
+		<aside class="home-sidebar">
+			<img
+				class="home-logo"
+				src="/ALMA-logo03-01.png"
+				alt="Antikapitalista Liga Magyarország logója"
+			/>
+
+			<blockquote class="home-motto">
+				<p>„Egy problémát nem lehet ugyanazzal a gondolkodásmóddal megoldani, amellyel létrehoztuk.”</p>
+				<cite>Albert Einstein</cite>
+			</blockquote>
+
+			<p class="home-note">
+				A webhely jelenleg fejlesztés alatt, a párt hivatalos megalakulása előtt áll.
+			</p>
+
+			<nav class="home-external-links" aria-label="Külső közösségi hivatkozások">
+				<a href="https://forms.cloud.microsoft/r/4VUADGHw0U?origin=lprLink">
+					Előjelentkezési kérdőív tagsághoz
+				</a>
+				<a href="https://www.facebook.com/antikapitalista.liga/">
+					Facebook közösség
+				</a>
+			</nav>
+		</aside>
+
+		<section class="home-content" aria-labelledby="home-title">
+			<h1 id="home-title" class="home-title">ANTIKAPITALISTA LIGA</h1>
+			<p class="home-country">MAGYARORSZÁG</p>
+
+			<div class="home-copy">
+				<p>
+					Az Antikapitalista Liga kezdeményezése a jelenlegi fenntarthatatlan gazdasági,
+					társadalmi és kulturális berendezkedés alapjait kívánja újragondolni,
+					minden megalkuvástól, félresiklástól mentesen.
+				</p>
+				<p>
+					Korunk válságai nem társadalmi, politikai vagy gazdasági eredetűek, hanem
+					mélyebben meghúzódó, szellemi zavarok következményei. E zavarok gyökere az
+					élet szentségéhez való viszonyunk torzulásában van.
+				</p>
+				<p>
+					A fennálló rend szokásos kritikája önmagában nem elegendő. Olyan valódi
+					alternatívára van szükség, amelynek talaján a társadalmi, gazdasági és politikai
+					kérdések egészére gyökeresen más válaszok adhatók.
+				</p>
+				<p>
+					Ehhez olyan emberek közösségére van szükség, amely pusztán a politikai térben
+					való jelenlétével képes előkészíteni, és akár végigvinni az átmenetet egy új
+					korszak felé.
+				</p>
+				<p>
+					Célunk egy olyan társadalmi forma létrehozására tett kísérlet bemutatása és
+					képviselete, amely hosszú távon fenntartható, és meghaladja a kapitalista
+					rend, a szellemre alapozva.
+				</p>
+			</div>
+
+			<aside class="home-closing">
+				<p>
+					Az Antikapitalista Liga alapszellemisége szerint hiszünk az emberben,
+					ugyanakkor az emberi gyengeség számos formáját látva óvatosak vagyunk, amikor
+					egy ilyen kezdeményezést megalapozunk és útjára bocsátunk.
+				</p>
+				<p>
+					Az Antikapitalista Liga alaptörekvései közül az egyik a politikai szféra újbóli
+					felemelése. Ez csak úgy lehetséges, ha előítéleteinket félrerakva adunk esélyt
+					magunknak egy új kezdethez.
+				</p>
+				<p class="home-signature">
+					Horváth Tamás Gábor, Örökös Elnök<br />
+					Zámoly, 2026. augusztus
+				</p>
+			</aside>
+		</section>
+	</main>
 </MainLayout>
+
+<style>
+	.home-shell {
+		--paper: #f2ebdf;
+		--home-gold: #d7b46c;
+		display: grid;
+		grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+		min-height: calc(100vh - var(--site-nav-height, 62px));
+		background: var(--paper);
+		color: #222;
+		font-family: "Segoe UI", sans-serif;
+		line-height: 1.75;
+	}
+
+	.home-sidebar {
+		padding: 40px 24px;
+		background: var(--color-moss-deep);
+		color: #eef3ef;
+	}
+
+	.home-logo {
+		display: block;
+		width: 100%;
+		max-width: 340px;
+		height: auto;
+		margin: 0 auto 10px;
+	}
+
+	.home-motto {
+		margin: 15px 0 0;
+		color: var(--home-gold);
+		font-size: 1rem;
+		font-style: italic;
+		line-height: 1.6;
+	}
+
+	.home-motto p {
+		max-width: none;
+		margin: 0;
+	}
+
+	.home-motto cite {
+		display: block;
+		margin-top: 10px;
+		color: #eef3ef;
+		font-style: normal;
+	}
+
+	.home-note {
+		margin-top: 28px;
+		padding-top: 18px;
+		border-top: 1px solid rgb(255 255 255 / 15%);
+		color: rgb(255 255 255 / 72%);
+		font-size: 0.9rem;
+		font-style: italic;
+		line-height: 1.6;
+	}
+
+	.home-external-links {
+		margin-top: 30px;
+	}
+
+	.home-external-links a {
+		display: block;
+		margin-bottom: 16px;
+		color: #eef3ef;
+		font-size: 1.05rem;
+		text-decoration: none;
+	}
+
+	.home-external-links a:hover {
+		text-decoration: underline;
+	}
+
+	.home-content {
+		max-width: none;
+		padding: 35px 45px 40px;
+	}
+
+	.home-title {
+		margin: 0;
+		color: #5a3c1e;
+		font-family: "Calibri Light", "Segoe UI Light", sans-serif;
+		font-size: 3rem;
+		font-weight: 300;
+		letter-spacing: 0.12em;
+		line-height: 1.1;
+		text-transform: uppercase;
+	}
+
+	.home-country {
+		margin: 10px 0 25px;
+		color: #5a3c1e;
+		font-family: "Calibri Light", "Segoe UI Light", sans-serif;
+		font-size: 1rem;
+		letter-spacing: 0.35em;
+		text-transform: uppercase;
+	}
+
+	.home-copy,
+	.home-closing {
+		max-width: 840px;
+	}
+
+	.home-copy p {
+		max-width: none;
+		margin-bottom: 1.2rem;
+	}
+
+	.home-closing {
+		margin-top: 35px;
+		padding: 24px 28px;
+		border-left: 4px solid var(--home-gold);
+		background: #f6f1e8;
+	}
+
+	.home-closing p {
+		max-width: none;
+		margin: 0;
+		font-size: 1.15rem;
+		line-height: 1.75;
+	}
+
+	.home-closing p + p {
+		margin-top: 1rem;
+	}
+
+	.home-signature {
+		margin-top: 28px !important;
+		color: #5a3c1e;
+		font-size: 0.95rem !important;
+		font-style: italic;
+		text-align: right;
+	}
+
+	@media (max-width: 1100px) {
+		.home-shell {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.home-sidebar {
+			text-align: center;
+		}
+
+		.home-logo {
+			max-width: 280px;
+		}
+
+		.home-content {
+			padding: 30px 22px 40px;
+		}
+
+		.home-title {
+			font-size: 2rem;
+		}
+
+		.home-country {
+			font-size: 0.9rem;
+		}
+
+		.home-closing p {
+			font-size: 1rem;
+		}
+	}
+</style>
