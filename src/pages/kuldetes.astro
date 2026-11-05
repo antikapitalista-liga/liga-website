@@ -1,0 +1,128 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+	title="Küldetés | Antikapitalista Liga Magyarország"
+	description="Az Antikapitalista Liga Magyarország küldetése és hosszú távú céljai."
+>
+	<header>
+      <h1>Küldetés</h1>
+      <p>
+        Az Antikapitalista Liga Magyarország küldetése, hogy hozzájáruljon a kapitalizmus
+        meghaladásához és az emberi élet szellemi, közösségi alapjait helyreállító
+        társadalmi rend kialakításához. Az embert nem pusztán biológiai vagy gazdasági
+        lényként, hanem méltósággal, felelősséggel és közösségi kötődésekkel rendelkező
+        személyként értelmezzük.
+      </p>
+      <p>
+        Ennek megfelelően a közösségek önrendelkezését, a természet megóvását és a
+        gazdaság emberi, közösségi és természeti rendnek való alárendelését tekintjük
+        alapvető iránynak. Hosszú távú célunk olyan szerves társadalom, amelyben az
+        ember, a közösség és a természet egymást erősítve bontakozhat ki.
+      </p>
+    <section class="foundational-documents" aria-label="Alapdokumentumok">
+      <p>Alapelveinket a Pártalkotmány foglalja össze.</p>
+      <figure class="document-cover">
+        <a href="/partalkotmany/" aria-label="A Pártalkotmány megnyitása">
+          <img
+            src="/covers/partalkotmany.svg"
+            alt="Földszínű, stilizált tájképet ábrázoló Pártalkotmány-borító"
+          />
+          <span class="cover-copy">
+            <span class="cover-organization">Antikapitalista Liga Magyarország</span>
+            <span class="cover-title">Pártalkotmány</span>
+          </span>
+        </a>
+      </figure>
+
+      <p>
+        A párt mindenkori programja az Alkotmány alapján, az Irányelvek figyelembevételével
+        kerül kidolgozásra és módosításra.
+      </p>
+      <figure class="document-cover">
+        <a href="/iranyelvek/" aria-label="Az Irányelvek megnyitása">
+          <img
+            src="/covers/iranyelvek-hid.svg"
+            alt="Régi kő- és fahíd egy erdős folyóvölgy felett"
+          />
+          <span class="cover-copy">
+            <span class="cover-organization">Antikapitalista Liga Magyarország</span>
+            <span class="cover-title">
+              Irányelvek
+              <span class="cover-subtitle">
+                Híd a Pártalkotmány és a mindenkori Program között
+              </span>
+            </span>
+          </span>
+        </a>
+      </figure>
+    </section>
+    </header>
+</MainLayout>
+
+<style>
+  .foundational-documents {
+    margin-top: 36px;
+  }
+
+  .document-cover {
+    position: relative;
+    width: min(100%, 420px);
+    aspect-ratio: 640 / 820;
+    margin: 12px 0 40px;
+    overflow: hidden;
+    background: #e9e2d4;
+    box-shadow: 0 8px 20px rgb(39 50 47 / 12%);
+  }
+
+  .document-cover a {
+    position: absolute;
+    inset: 0;
+    display: block;
+    color: #5a3c1e;
+    text-decoration: none;
+  }
+
+  .document-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cover-copy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12% 12% 10%;
+    text-align: center;
+  }
+
+  .cover-organization {
+    font-family: "Calibri Light", "Segoe UI Light", sans-serif;
+    font-size: clamp(1rem, 4vw, 1.55rem);
+    line-height: 1.15;
+  }
+
+  .cover-title {
+    margin-top: 12px;
+    font-family: "Calibri Light", "Segoe UI Light", sans-serif;
+    font-size: clamp(1.5rem, 6vw, 2.6rem);
+    line-height: 1.08;
+  }
+
+  .cover-subtitle {
+    display: block;
+    max-width: 18ch;
+    margin: 14px auto 0;
+    font-family: "Aptos", "Segoe UI", sans-serif;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    line-height: 1.35;
+  }
+
+  .document-cover a:focus-visible {
+    outline-offset: -6px;
+  }
+</style>
