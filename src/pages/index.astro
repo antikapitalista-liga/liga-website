@@ -83,6 +83,20 @@ import MainLayout from "../layouts/MainLayout.astro";
 				</p>
 			</aside>
 		</section>
+		    <aside class="home-right"> 
+			<div class="home-panel"> 
+				<h2>Kiemelt írások</h2> 
+				<p> 
+					Itt jelenhetnek meg a legfontosabb cikkek és dokumentumok. 
+				</p> 
+			</div> 
+			<div class="home-panel"> 
+				<h2>Aktuális</h2> 
+				<p> 
+					Hírek, események, felhívások helye. 
+				</p> 
+			</div> 
+		</aside>
 	</main>
 </MainLayout>
 
@@ -91,7 +105,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 		--paper: #f2ebdf;
 		--home-gold: #d7b46c;
 		display: grid;
-		grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+		grid-template-columns: minmax(320px, 420px) minmax(600px, 1fr) minmax(240px, 320px);
 		min-height: calc(100vh - var(--site-nav-height, 62px));
 		background: var(--paper);
 		color: #222;
@@ -218,6 +232,44 @@ import MainLayout from "../layouts/MainLayout.astro";
 		font-size: 0.95rem !important;
 		font-style: italic;
 		text-align: right;
+	}
+
+	.home-right { 
+		padding: 35px 25px; 
+		border-left: 1px solid #d5cab8; 
+		background: #efe7d9; 
+	} 
+	
+	.home-panel {
+		margin-bottom: 24px; 
+		padding: 18px; 
+		background: #f6f1e8; 
+		border-left: 3px solid #d7b46c; 
+	} 
+	
+	.home-panel h2 {
+		margin: 0 0 12px 0; 
+		color: #5a3c1e; 
+		font-family: "Calibri Light","Segoe UI Light",sans-serif; 
+		font-size: 1.1rem; 
+		letter-spacing: .08em; 
+		text-transform: uppercase; 
+	} 
+	
+	.home-panel p { 
+		margin: 0; 
+	} 
+	@media (max-width: 1400px) { 
+		.home-shell { 
+			grid-template-columns: 
+			minmax(320px, 420px) 
+			minmax(600px, 1fr) 
+			minmax(240px, 320px); 
+		} 
+		
+		.home-right { 
+			display: none; 
+		} 
 	}
 
 	@media (max-width: 1100px) {
