@@ -105,7 +105,10 @@ import MainLayout from "../layouts/MainLayout.astro";
 		--paper: #f2ebdf;
 		--home-gold: #d7b46c;
 		display: grid;
-		grid-template-columns: minmax(320px, 420px) minmax(600px, 1fr) minmax(240px, 320px);
+		grid-template-columns:     
+		420px 
+		840px 
+		1fr;
 		min-height: calc(100vh - var(--site-nav-height, 62px));
 		background: var(--paper);
 		color: #222;
@@ -235,16 +238,15 @@ import MainLayout from "../layouts/MainLayout.astro";
 	}
 
 	.home-right { 
-		padding: 35px 25px; 
-		border-left: 1px solid #d5cab8; 
-		background: #efe7d9; 
+		padding: 35px 20px;
+		background: #efe7d9;
 	} 
 	
 	.home-panel {
-		margin-bottom: 24px; 
-		padding: 18px; 
-		background: #f6f1e8; 
-		border-left: 3px solid #d7b46c; 
+		margin-bottom: 24px;  
+		padding: 0; 
+		background: transparent; 
+		border: 0; 
 	} 
 	
 	.home-panel h2 {
