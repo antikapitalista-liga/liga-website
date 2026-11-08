@@ -1,0 +1,68 @@
+---
+import { missionDocuments } from "../data/missionDocuments";
+---
+
+<section class="mission-downloads" aria-label="Letölthető dokumentumok">
+	<p class="mission-downloads-heading">Letölthető dokumentumok:</p>
+	<ul>
+		{missionDocuments.map((document) => (
+			<li>
+				<span>{document.label}</span>
+				<a href={`/dokumentumok/${document.slug}.docx`} download={document.file} aria-label={`${document.label} letöltése Word-dokumentumként`}>
+					<img src="/word-document-icon.png" width="24" height="24" alt="" />
+				</a>
+			</li>
+		))}
+	</ul>
+	<p><strong>Minden dokumentum esetén mindig az itt elérhető verzió az élő.</strong></p>
+</section>
+
+<style>
+	.mission-downloads {
+		margin-top: 30px;
+		color: var(--color-moss-light);
+		text-align: left;
+	}
+
+	.mission-downloads ul {
+		margin: 0 0 20px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.mission-downloads .mission-downloads-heading {
+		margin-bottom: 10px;
+	}
+
+	.mission-downloads li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 4px;
+	}
+
+	.mission-downloads a {
+		display: inline-flex;
+		flex-shrink: 0;
+		padding: 4px;
+		border-radius: 4px;
+		color: inherit;
+	}
+
+	.mission-downloads a:hover {
+		background: rgb(255 255 255 / 15%);
+	}
+
+	.mission-downloads p {
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	@media (max-width: 1100px) {
+		.mission-downloads {
+			max-width: 500px;
+			margin-inline: auto;
+		}
+	}
+</style>

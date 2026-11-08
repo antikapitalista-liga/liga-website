@@ -1,13 +1,16 @@
 ---
+interface Props {
+	wide?: boolean;
+	magazine?: boolean;
+}
 
-
-const { wide = false } = Astro.props;
+const { wide = false, magazine = false } = Astro.props;
 const currentPath = Astro.url.pathname;
+const isMagazinePath = currentPath.startsWith("/magazin/");
 const items = [
 	{ href: "/", label: "Főoldal" },
 	{ href: "/kuldetes/", label: "Küldetés" },
-	{ href: "/velemeny/", label: "Vélemény" },
-	{ href: "/irasok/", label: "Írások" },
+	{ href: "/magazin/", label: "Magazin" },
 	{ href: "/kozosseg/", label: "Közösség" },
 	{ href: "/kapcsolat/", label: "Kapcsolat" },
 	{ href: "/english/", label: "English" },
@@ -15,13 +18,20 @@ const items = [
 ---
 <nav
 	id="top-of-page"
-	class:list={["site-navigation", wide && "site-navigation-wide"]}
+	class:list={["site-navigation", wide && "site-navigation-wide", magazine && "site-navigation-magazine"]}
 	aria-label="Fő navigáció"
 >
 	<ul>
 		{items.map((item) => (
 			<li>
-				<a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>
+				<a
+					href={item.href}
+					aria-current={
+						currentPath === item.href || (item.href === "/magazin/" && isMagazinePath)
+							? "page"
+							: undefined
+					}
+				>
 					{item.label}
 				</a>
 			</li>

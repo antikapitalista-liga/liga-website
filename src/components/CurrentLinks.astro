@@ -1,0 +1,19 @@
+---
+import { aktualisCategories } from "../data/aktualis";
+
+interface Props {
+	lang?: "hu" | "en";
+}
+
+const { lang = "hu" } = Astro.props;
+---
+
+<ul class="current-links">
+	{aktualisCategories.map((category) => (
+		<li>
+			<a href={`/magazin/aktualis/${category.slug}/`}>
+				{lang === "en" ? category.englishLabel : category.label}
+			</a>
+		</li>
+	))}
+</ul>

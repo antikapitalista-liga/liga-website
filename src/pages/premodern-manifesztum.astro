@@ -1,0 +1,63 @@
+---
+import mammoth from "mammoth";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import ChapterControls from "../components/ChapterControls.astro";
+import MissionDocumentLayout from "../layouts/MissionDocumentLayout.astro";
+
+const documentBuffer = await readFile(resolve(process.cwd(), "src", "docs", "Premodern Manifesztum.docx"));
+const { value: html, messages } = await mammoth.convertToHtml(
+	{ buffer: documentBuffer },
+	{ styleMap: ["p[style-name='Title'] => h1:fresh"] },
+);
+for (const message of messages) {
+	console.warn(`Premodern Manifesztum: ${message.message}`);
+}
+
+const title = html.match(/^<h1>([\s\S]*?)<\/h1>/);
+if (!title) {
+	throw new Error("A Premodern Manifesztum dokumentum címe nem található.");
+}
+
+const body = html.slice(title[0].length);
+const headings = Array.from(body.matchAll(/<h2>([\s\S]*?)<\/h2>/g));
+if (headings.length === 0) {
+	throw new Error("A Premodern Manifesztum dokumentumban nem található fejezetcím.");
+}
+const introduction = body.slice(0, headings[0].index);
+const chapters = headings.map((heading, index) => ({
+	id: `premodern-fejezet-${index + 1}`,
+	title: heading[1].trim(),
+	content: body.slice(heading.index + heading[0].length, headings[index + 1]?.index ?? body.length),
+}));
+---
+
+<MissionDocumentLayout
+	title="Premodern Manifesztum"
+	description="Az Antikapitalista Liga Magyarország Premodern Manifesztuma."
+	topId="premodern-top"
+>
+	{introduction && <div set:html={introduction} />}
+	<article class="manifesto-copy">
+		{chapters.map((chapter, index) => (
+			<section aria-labelledby={chapter.id}>
+				<h2 class="document-chapter-heading" id={chapter.id}>
+					<span set:html={chapter.title} /><ChapterControls
+						previous={chapters[index - 1]?.id}
+						next={chapters[index + 1]?.id}
+						top="premodern-top"
+					/>
+				</h2>
+				<div set:html={chapter.content} />
+			</section>
+		))}
+	</article>
+</MissionDocumentLayout>
+
+<style>
+	.manifesto-copy {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: 0;
+	}
+</style>

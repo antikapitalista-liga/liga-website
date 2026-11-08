@@ -1,0 +1,28 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import MagazineParent from "../../components/MagazineParent.astro";
+---
+
+<MainLayout
+	title="Vélemény | Magazin | Antikapitalista Liga Magyarország"
+	description="Rövid vélemények társadalmi, gazdasági és politikai kérdésekről."
+	theme="magazine"
+>
+	<header>
+		<MagazineParent />
+		<h1>Vélemény</h1>
+		<p>
+			Rövid állásfoglalások és gondolatok azokról a társadalmi, gazdasági és politikai
+			kérdésekről, amelyek közös életünket alakítják.
+		</p>
+	</header>
+	<main>
+		<section aria-labelledby="reszvetel">
+			<h2 id="reszvetel">Közös gondolkodás</h2>
+			<p>
+				Javasolj kérdést, oszd meg a tapasztalatodat, vagy kapcsolódj be a párbeszédbe a
+				<a href="/kapcsolat/">Kapcsolat</a> oldalon.
+			</p>
+		</section>
+	</main>
+</MainLayout>

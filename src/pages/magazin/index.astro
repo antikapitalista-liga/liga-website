@@ -1,0 +1,29 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import MagazineNavigation from "../../components/MagazineNavigation.astro";
+---
+
+<MainLayout
+	title="Magazin | Antikapitalista Liga Magyarország"
+	description="Vélemények, esszék, irodalmi írások, podcastok és aktuális hírek az Antikapitalista Liga Magyarország magazinjában."
+	theme="magazine"
+>
+	<header>
+		<h1>Magazin</h1>
+		<p>
+			Vélemények, esszék, irodalmi írások, podcastok és aktuális hírek a társadalom, a
+			gazdaság és a közös élet kérdéseiről.
+		</p>
+	</header>
+	<main>
+		<section aria-labelledby="magazine-about">
+			<h2 class="current-category-title" id="magazine-about">A rovatokról</h2>
+			<p>
+				Az Antikapitalista Liga Magazin oldalát egy olyan online, önállóan is értelmezhető
+				portálként szeretnénk működtetni, amelyik a párt eszmeiségéhez közelálló szerzőknek
+				ad lehetőséget megjelenésre.
+			</p>
+		</section>
+		<MagazineNavigation />
+	</main>
+</MainLayout>

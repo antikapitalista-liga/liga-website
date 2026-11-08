@@ -2,47 +2,35 @@
 interface Props {
 	previous?: string;
 	next?: string;
+	top?: string;
 }
 
-const { previous, next } = Astro.props;
+const { previous, next, top = "constitution-top" } = Astro.props;
 ---
-<nav class="chapter-controls" aria-label="Fejezetnavigáció">
-	{previous ? (
-		<a class="chapter-control" href={`#${previous}`}>Ugrás az előző fejezetre</a>
-	) : (
-		<span class="chapter-control is-disabled" aria-disabled="true">Ugrás az előző fejezetre</span>
-	)}
-	{next ? (
-		<a class="chapter-control" href={`#${next}`}>Ugrás a következő fejezetre</a>
-	) : (
-		<span class="chapter-control is-disabled" aria-disabled="true">Ugrás a következő fejezetre</span>
-	)}
-	<a class="chapter-control" href="#top-of-page">A dokumentum elejére</a>
-</nav>
+<span class="chapter-controls" role="group" aria-label="Fejezetnavigáció">
+	{previous && <a href={`#${previous}`} aria-label="Ugrás az előző fejezetre">↑</a>}
+	{next && <a href={`#${next}`} aria-label="Ugrás a következő fejezetre">↓</a>}
+	<a href={`#${top}`} aria-label="Ugrás a dokumentum elejére">↑↑</a>
+</span>
 
 <style>
 	.chapter-controls {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4px 18px;
-		margin: 0 0 20px;
+		display: inline-flex;
+		gap: 0.35em;
+		margin-left: 1em;
+		white-space: nowrap;
+		font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
+		font-size: 0.75em;
 	}
 
-	.chapter-control {
-		display: inline;
-		color: #5a3c1e;
-		font: inherit;
-		font-size: 0.85rem;
-		text-decoration: underline;
-		text-underline-offset: 3px;
-	}
-
-	a.chapter-control:hover {
-		color: #3d2916;
-	}
-
-	.chapter-control.is-disabled {
-		color: #8e8983;
+	.chapter-controls a {
+		padding: 0 0.2em;
+		border-radius: 4px;
+		color: inherit;
 		text-decoration: none;
+	}
+
+	.chapter-controls a:hover {
+		background: rgb(0 0 0 / 12%);
 	}
 </style>

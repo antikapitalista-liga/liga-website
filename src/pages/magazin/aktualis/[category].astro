@@ -1,0 +1,35 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+import MagazineParent from "../../../components/MagazineParent.astro";
+import { aktualisCategories } from "../../../data/aktualis";
+
+export function getStaticPaths() {
+	return aktualisCategories.map((category) => ({
+		params: { category: category.slug },
+		props: { category },
+	}));
+}
+
+const { category } = Astro.props;
+---
+
+<MainLayout
+	title={`${category.label} | Aktuális | Magazin | Antikapitalista Liga Magyarország`}
+	description={`${category.label} az Antikapitalista Liga Magyarország magazinjában.`}
+	theme="magazine"
+>
+	<header>
+		<MagazineParent />
+		<h1>Aktuális</h1>
+		<p>Alternatív hírek, a Liga hírei és a közösség eseményei.</p>
+	</header>
+	<main>
+		<section aria-labelledby="current-category-title">
+			<h2 class="current-category-title" id="current-category-title">
+				{category.label}
+				<a class="current-category-back" href="/magazin/aktualis/" aria-label="Vissza az Aktuális áttekintő oldalára">↑↑</a>
+			</h2>
+			<p>A rovat írásai hamarosan itt lesznek elérhetők.</p>
+		</section>
+	</main>
+</MainLayout>

@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import CurrentLinks from "../components/CurrentLinks.astro";
 ---
 
 <MainLayout
@@ -35,272 +36,101 @@ import MainLayout from "../layouts/MainLayout.astro";
 		</aside>
 
 		<section class="home-content" aria-labelledby="home-title">
-			<h1 id="home-title" class="home-title">ANTIKAPITALISTA LIGA</h1>
+			<h1 id="home-title" class="home-title" tabindex="-1">ANTIKAPITALISTA LIGA</h1>
 			<p class="home-country">MAGYARORSZÁG</p>
 
 			<div class="home-copy">
 				<p>
-					Az Antikapitalista Liga kezdeményezése a jelenlegi fenntarthatatlan gazdasági,
-					társadalmi és kulturális berendezkedés alapjait kívánja újragondolni,
-					minden megalkuvástól, félresiklástól mentesen.
-				</p>
-				<p>
-					Korunk válságai nem társadalmi, politikai vagy gazdasági eredetűek, hanem
-					mélyebben meghúzódó, szellemi zavarok következményei. E zavarok gyökere az
-					élet szentségéhez való viszonyunk torzulásában van.
+					Korunk válságkorszak. Egyre láthatóbbá váló válságai nem társadalmi, politikai
+					vagy gazdasági eredetűek, hanem mélyebben meghúzódó, szellemi zavarok következményei.
+					E zavarok gyökere az élet egészéhez való viszonyunk torzulásában van. Az Antikapitalista
+					Liga kezdeményezése a jelenlegi fenntarthatatlan gazdasági, társadalmi és kulturális
+					berendezkedés alapjait kívánja újragondolni, minden megalkuvástól, félresiklástól mentesen.
 				</p>
 				<p>
 					A fennálló rend szokásos kritikája önmagában nem elegendő. Olyan valódi
 					alternatívára van szükség, amelynek talaján a társadalmi, gazdasági és politikai
-					kérdések egészére gyökeresen más válaszok adhatók.
+					kérdések egészére gyökeresen más válaszok adhatók. Ehhez olyan emberek közösségére
+					van szükség, amely a politikai térben való puszta jelenlétével képes előkészíteni,
+					és akár végigvinni az átmenetet egy új korszak felé.
 				</p>
 				<p>
-					Ehhez olyan emberek közösségére van szükség, amely pusztán a politikai térben
-					való jelenlétével képes előkészíteni, és akár végigvinni az átmenetet egy új
-					korszak felé.
-				</p>
-				<p>
-					Célunk egy olyan társadalmi forma létrehozására tett kísérlet bemutatása és
-					képviselete, amely hosszú távon fenntartható, és meghaladja a kapitalista
-					rend, a szellemre alapozva.
+					Célunk a kapitalista rend szellemre alapozott meghaladása.
 				</p>
 			</div>
 
-			<aside class="home-closing">
+		</section>
+		<aside class="home-right">
+			<div class="home-panel">
+				<h2><a href="/magazin/aktualis/">Aktuális</a></h2>
+				<CurrentLinks />
+			</div>
+		</aside>
+	</main>
+	<aside class="home-closing" aria-label="Üzenet az olvasóknak">
+		<button class="home-closing-dismiss" type="button" aria-label="Üzenet bezárása" hidden>×</button>
+		<div class="home-closing-content">
 				<p>
-					Az Antikapitalista Liga alapszellemisége szerint hiszünk az emberben,
-					ugyanakkor az emberi gyengeség számos formáját látva óvatosak vagyunk, amikor
+					Az Antikapitalista Liga alapszellemisége a hit az emberben, az emberiességben.
+					Ugyanakkor az emberi gyengeség számos formáját látva óvatosak vagyunk, amikor
 					egy ilyen kezdeményezést megalapozunk és útjára bocsátunk.
 				</p>
 				<p>
 					Az Antikapitalista Liga alaptörekvései közül az egyik a politikai szféra újbóli
-					felemelése. Ez csak úgy lehetséges, ha előítéleteinket félrerakva adunk esélyt
-					magunknak egy új kezdethez.
+					felemelése. Ez csak úgy lehetséges, ha előítéleteinket félrerakva, társadalmi
+					szinten adunk esélyt magunknak egy új kezdethez, amit a közeljövő eseményei
+					egyébként ki fognak kényszeríteni.
+				</p>
+				<p>
+					Ebben a szituációban nem mindegy, hogy sodródni fogunk, vagy pedig a mindenkori
+					erőviszonyok mentén aktívan próbáljuk a jövőnket megalapozni és alakítani.
+					Mégha az egész kudarcra is van ítélve...
 				</p>
 				<p class="home-signature">
 					Horváth Tamás Gábor, Örökös Elnök<br />
 					Zámoly, 2026. augusztus
 				</p>
-			</aside>
-		</section>
-		    <aside class="home-right"> 
-			<div class="home-panel"> 
-				<h2>Kiemelt írások</h2> 
-				<p> 
-					Itt jelenhetnek meg a legfontosabb cikkek és dokumentumok. 
-				</p> 
-			</div> 
-			<div class="home-panel"> 
-				<h2>Aktuális</h2> 
-				<p> 
-					Hírek, események, felhívások helye. 
-				</p> 
-			</div> 
-		</aside>
-	</main>
+		</div>
+	</aside>
+	<script is:inline>
+		{
+			const message = document.querySelector(".home-closing");
+			const closeButton = message?.querySelector(".home-closing-dismiss");
+			const homeTitle = document.querySelector("#home-title");
+
+			if (message && closeButton) {
+				let alreadyShown = false;
+				try {
+					alreadyShown = sessionStorage.getItem("home-message-shown") === "1";
+					if (!alreadyShown) sessionStorage.setItem("home-message-shown", "1");
+				} catch (error) {
+					console.warn("A kezdőoldali üzenet megjelenítését nem sikerült megjegyezni.", error);
+				}
+
+				const closeMessage = () => {
+					if (message.contains(document.activeElement)) {
+						homeTitle?.focus({ preventScroll: true });
+					}
+					message.hidden = true;
+				};
+
+				if (alreadyShown) {
+					closeMessage();
+				} else {
+					closeButton.hidden = false;
+					const timeout = window.setTimeout(closeMessage, 20_000);
+					closeButton.addEventListener("click", () => {
+						window.clearTimeout(timeout);
+						closeMessage();
+					});
+					window.addEventListener("pageshow", (event) => {
+						if (event.persisted) {
+							window.clearTimeout(timeout);
+							closeMessage();
+						}
+					});
+				}
+			}
+		}
+	</script>
 </MainLayout>
-
-<style>
-	.home-shell {
-		--paper: #f2ebdf;
-		--home-gold: #d7b46c;
-		display: grid;
-		grid-template-columns:     
-		420px 
-		840px 
-		1fr;
-		min-height: calc(100vh - var(--site-nav-height, 62px));
-		background: var(--paper);
-		color: #222;
-		font-family: "Segoe UI", sans-serif;
-		line-height: 1.75;
-	}
-
-	.home-sidebar {
-		padding: 40px 24px;
-		background: var(--color-moss-deep);
-		color: #eef3ef;
-	}
-
-	.home-logo {
-		display: block;
-		width: 100%;
-		max-width: 340px;
-		height: auto;
-		margin: 0 auto 10px;
-	}
-
-	.home-motto {
-		margin: 15px 0 0;
-		color: var(--home-gold);
-		font-size: 1rem;
-		font-style: italic;
-		line-height: 1.6;
-	}
-
-	.home-motto p {
-		max-width: none;
-		margin: 0;
-	}
-
-	.home-motto cite {
-		display: block;
-		margin-top: 10px;
-		color: #eef3ef;
-		font-style: normal;
-	}
-
-	.home-note {
-		margin-top: 28px;
-		padding-top: 18px;
-		border-top: 1px solid rgb(255 255 255 / 15%);
-		color: rgb(255 255 255 / 72%);
-		font-size: 0.9rem;
-		font-style: italic;
-		line-height: 1.6;
-	}
-
-	.home-external-links {
-		margin-top: 30px;
-	}
-
-	.home-external-links a {
-		display: block;
-		margin-bottom: 16px;
-		color: #eef3ef;
-		font-size: 1.05rem;
-		text-decoration: none;
-	}
-
-	.home-external-links a:hover {
-		text-decoration: underline;
-	}
-
-	.home-content {
-		max-width: none;
-		padding: 35px 45px 40px;
-	}
-
-	.home-title {
-		margin: 0;
-		color: #5a3c1e;
-		font-family: "Calibri Light", "Segoe UI Light", sans-serif;
-		font-size: 3rem;
-		font-weight: 300;
-		letter-spacing: 0.12em;
-		line-height: 1.1;
-		text-transform: uppercase;
-	}
-
-	.home-country {
-		margin: 10px 0 25px;
-		color: #5a3c1e;
-		font-family: "Calibri Light", "Segoe UI Light", sans-serif;
-		font-size: 1rem;
-		letter-spacing: 0.35em;
-		text-transform: uppercase;
-	}
-
-	.home-copy,
-	.home-closing {
-		max-width: 840px;
-	}
-
-	.home-copy p {
-		max-width: none;
-		margin-bottom: 1.2rem;
-	}
-
-	.home-closing {
-		margin-top: 35px;
-		padding: 24px 28px;
-		border-left: 4px solid var(--home-gold);
-		background: #f6f1e8;
-	}
-
-	.home-closing p {
-		max-width: none;
-		margin: 0;
-		font-size: 1.15rem;
-		line-height: 1.75;
-	}
-
-	.home-closing p + p {
-		margin-top: 1rem;
-	}
-
-	.home-signature {
-		margin-top: 28px !important;
-		color: #5a3c1e;
-		font-size: 0.95rem !important;
-		font-style: italic;
-		text-align: right;
-	}
-
-	.home-right { 
-		padding: 35px 20px;
-		background: #efe7d9;
-	} 
-	
-	.home-panel {
-		margin-bottom: 24px;  
-		padding: 0; 
-		background: transparent; 
-		border: 0; 
-	} 
-	
-	.home-panel h2 {
-		margin: 0 0 12px 0; 
-		color: #5a3c1e; 
-		font-family: "Calibri Light","Segoe UI Light",sans-serif; 
-		font-size: 1.1rem; 
-		letter-spacing: .08em; 
-		text-transform: uppercase; 
-	} 
-	
-	.home-panel p { 
-		margin: 0; 
-	} 
-	@media (max-width: 1400px) { 
-		.home-shell { 
-			grid-template-columns: 
-			minmax(320px, 420px) 
-			minmax(600px, 1fr) 
-			minmax(240px, 320px); 
-		} 
-		
-		.home-right { 
-			display: none; 
-		} 
-	}
-
-	@media (max-width: 1100px) {
-		.home-shell {
-			grid-template-columns: minmax(0, 1fr);
-		}
-
-		.home-sidebar {
-			text-align: center;
-		}
-
-		.home-logo {
-			max-width: 280px;
-		}
-
-		.home-content {
-			padding: 30px 22px 40px;
-		}
-
-		.home-title {
-			font-size: 2rem;
-		}
-
-		.home-country {
-			font-size: 0.9rem;
-		}
-
-		.home-closing p {
-			font-size: 1rem;
-		}
-	}
-</style>

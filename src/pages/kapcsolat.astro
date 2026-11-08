@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 <MainLayout
 	title="Kapcsolat | Antikapitalista Liga Magyarország"
 	description="Kapcsolatfelvétel az Antikapitalista Liga Magyarországgal."
+	brandTone="rust"
 >
 	<header>
 			<h1>Kapcsolat</h1>
@@ -12,10 +13,21 @@ import MainLayout from "../layouts/MainLayout.astro";
 		</header>
 
 		<main>
+			<p>Telegram: <a class="contact-link" href="https://t.me/antikapitalista_liga" target="_blank" rel="noopener noreferrer">https://t.me/antikapitalista_liga</a></p>
 			<p>
 				A közösségi részvételről és a közös kezdeményezésekről a Közösség oldalon
 				olvashatsz.
 			</p>
-			<p>A közvetlen kapcsolatfelvételi lehetőségek hamarosan elérhetők.</p>
 		</main>
 </MainLayout>
+
+<style>
+	.contact-link {
+		color: var(--color-rust);
+		text-decoration: none;
+	}
+
+	.contact-link:visited {
+		color: var(--color-bronze);
+	}
+</style>
