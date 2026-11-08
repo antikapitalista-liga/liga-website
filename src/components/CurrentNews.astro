@@ -1,0 +1,29 @@
+---
+import { honlapNews } from "../data/aktualis";
+---
+
+<div class="current-news" lang="hu">
+	<a href={honlapNews.url}>
+		<span class="current-article-title">{honlapNews.title}</span>
+		<strong>{honlapNews.subtitle}</strong>
+	</a>
+</div>
+
+<style>
+	.current-news {
+		margin: 8px 0 12px 12px;
+	}
+
+	.current-news a {
+		display: block;
+	}
+
+	.current-news strong {
+		display: block;
+		margin-top: 4px;
+		font-family: "Special Elite", "Segoe UI", sans-serif;
+		font-size: 0.9rem;
+		line-height: 1.5;
+		text-transform: none;
+	}
+</style>

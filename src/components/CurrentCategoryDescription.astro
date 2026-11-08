@@ -1,0 +1,22 @@
+---
+interface Props {
+	text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<span class="current-category-description">{text}</span>
+
+<style>
+	.current-category-description {
+		display: block;
+		color: var(--color-text);
+		font-family: "Mouse Memoirs", "Segoe UI", sans-serif;
+		font-size: 1rem;
+		font-weight: 400;
+		letter-spacing: normal;
+		line-height: 1.4;
+		text-transform: none;
+	}
+</style>

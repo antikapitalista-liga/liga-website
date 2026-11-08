@@ -1,5 +1,7 @@
 ---
 import { aktualisCategories } from "../data/aktualis";
+import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
+import CurrentNews from "./CurrentNews.astro";
 
 interface Props {
 	lang?: "hu" | "en";
@@ -14,6 +16,10 @@ const { lang = "hu" } = Astro.props;
 			<a href={`/magazin/aktualis/${category.slug}/`}>
 				{lang === "en" ? category.englishLabel : category.label}
 			</a>
+			<CurrentCategoryDescription text={lang === "en" ? category.englishDescription : category.description} />
+			{category.slug === "part-hirek" && (
+				<CurrentNews />
+			)}
 		</li>
 	))}
 </ul>

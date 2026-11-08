@@ -178,14 +178,29 @@ body {
 }
 
 .current-links,
-.current-category-title {
+.current-category-title,
+.current-article-title {
 	font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
 	font-size: 1.1rem;
 	font-weight: 400;
+}
+
+.current-links,
+.current-category-title {
 	text-transform: uppercase;
 }
 
-.current-links a {
+.current-article-title {
+	font-variant: small-caps;
+	text-transform: none;
+}
+
+.current-news .current-article-title {
+	font-size: 1.25rem;
+}
+
+.current-links a,
+.current-news a {
 	color: var(--color-gold-brown);
 }
 
@@ -197,7 +212,9 @@ body {
 .home-panel h2 a,
 .constitution-parent a,
 .current-links a,
-.current-category-title a {
+.current-news a,
+.current-category-title a,
+.current-category-back {
 	padding: 4px 6px;
 	margin: -4px -6px;
 	border-radius: 4px;
@@ -207,7 +224,8 @@ body {
 .site-context-panel h2 a,
 .home-panel h2 a,
 .constitution-parent a,
-.current-category-title a {
+.current-category-title a,
+.current-category-back {
 	color: inherit;
 }
 
@@ -215,13 +233,29 @@ body {
 .home-panel h2 a:hover,
 .constitution-parent a:hover,
 .current-links a:hover,
-.current-category-title a:hover {
+.current-news a:hover,
+.current-category-title a:hover,
+.current-category-back:hover {
 	background: rgb(0 0 0 / 12%);
 	text-decoration: none;
 }
 
-.current-category-title a.current-category-back {
-	margin-left: 2em;
+.site-context-panel .current-news a,
+.home-panel .current-news a {
+	color: #203f40;
+	background: rgb(255 255 255 / 35%);
+}
+
+.site-context-panel .current-news a:hover,
+.home-panel .current-news a:hover {
+	background: rgb(255 255 255 / 55%);
+}
+
+.current-category-back {
+	display: inline-block;
+	margin-left: 1em;
+	font-size: 1.1rem;
+	letter-spacing: normal;
 }
 
 .site-context-panel p {
@@ -341,6 +375,7 @@ h2 {
 	font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
 	font-weight: 400;
 	margin-top: 1.5em;
+	margin-bottom: 0.75em;
 	font-size: 2rem;
 	line-height: 1.25;
 	overflow-wrap: anywhere;
@@ -461,7 +496,9 @@ article > p:first-child {
 
 .home-title,
 .site-content > header .constitution-title,
-.site-content > header .guidelines-title {
+.site-content > header .guidelines-title,
+.site-content > header .magazine-title,
+.site-content > header h1.magazine-title {
 	margin: 0;
 	color: var(--color-rail);
 	font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
@@ -745,7 +782,9 @@ article > p:first-child {
 
 	.home-title,
 	.site-content > header .constitution-title,
-	.site-content > header .guidelines-title {
+	.site-content > header .guidelines-title,
+	.site-content > header .magazine-title,
+	.site-content > header h1.magazine-title {
 		font-size: 2rem;
 	}
 

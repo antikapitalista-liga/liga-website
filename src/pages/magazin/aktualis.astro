@@ -1,6 +1,8 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import MagazineParent from "../../components/MagazineParent.astro";
+import CurrentCategoryDescription from "../../components/CurrentCategoryDescription.astro";
+import CurrentNews from "../../components/CurrentNews.astro";
 import { aktualisCategories } from "../../data/aktualis";
 ---
 
@@ -9,19 +11,41 @@ import { aktualisCategories } from "../../data/aktualis";
 	description="Alternatív hírek, párthírek és események az Antikapitalista Liga Magyarország magazinjában."
 	theme="magazine"
 >
-	<header>
+	<header class="current-overview-header">
 		<MagazineParent />
 		<h1>Aktuális</h1>
-		<p>Alternatív hírek, a Liga hírei és a közösség eseményei.</p>
 	</header>
-	<main>
+	<main class="current-overview">
 		{aktualisCategories.map((category) => (
 			<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
 				<h2 class="current-category-title" id={`${category.slug}-title`}>
 					<a href={`/magazin/aktualis/${category.slug}/`}>{category.label}</a>
 				</h2>
-				<p>A rovat írásai hamarosan itt lesznek elérhetők.</p>
+				<CurrentCategoryDescription text={category.description} />
+				{category.slug === "part-hirek" ? (
+					<CurrentNews />
+				) : (
+					<p>A rovat írásai hamarosan itt lesznek elérhetők.</p>
+				)}
 			</section>
 		))}
 	</main>
 </MainLayout>
+
+<style>
+	.current-overview-header h1 {
+		margin-bottom: 0;
+	}
+
+	.current-overview section:first-child h2 {
+		margin-top: 16px;
+	}
+
+	.current-overview h2 {
+		margin-bottom: 4px;
+	}
+
+	.current-overview section > p {
+		margin-top: 8px;
+	}
+</style>
