@@ -1,0 +1,301 @@
+---
+interface Props {
+	lang?: "hu" | "en";
+}
+
+const { lang = "hu" } = Astro.props;
+const english = lang === "en";
+---
+
+<div
+	class="site-search"
+	data-empty={english ? "No results found." : "Nincs találat."}
+	data-error={english ? "Search is unavailable. Please try again later." : "A kereső most nem érhető el. Próbáld meg később."}
+	data-count={english ? "results" : "találat"}
+>
+	<form role="search" aria-label={english ? "Search the site" : "Keresés a honlapon"}>
+		<label class="search-label" for="site-search-input">{english ? "Search the site" : "Keresés a honlapon"}</label>
+		<input
+			id="site-search-input"
+			type="search"
+			placeholder={english ? "Search…" : "Keresés…"}
+			autocomplete="off"
+			aria-controls="site-search-results"
+			aria-expanded="false"
+		/>
+		<button type="submit">{english ? "Search" : "Keresés"}</button>
+	</form>
+	<div class="search-dropdown" id="site-search-results" hidden>
+		<p class="search-status" role="status" aria-live="polite"></p>
+		<div class="search-results"></div>
+	</div>
+	<noscript>{english ? "Search requires JavaScript." : "A kereséshez JavaScript szükséges."}</noscript>
+</div>
+
+<script>
+	const search = document.querySelector<HTMLElement>(".site-search");
+	if (search) {
+		const form = search.querySelector<HTMLFormElement>("form")!;
+		const input = search.querySelector<HTMLInputElement>("input")!;
+		const dropdown = search.querySelector<HTMLElement>(".search-dropdown")!;
+		const status = search.querySelector<HTMLElement>(".search-status")!;
+		const results = search.querySelector<HTMLElement>(".search-results")!;
+		let version = 0;
+		let timer: ReturnType<typeof setTimeout>;
+		type SearchEntry = {
+			url: string;
+			meta: { title: string };
+			plain_excerpt: string;
+			sub_results: { title: string; plain_excerpt: string }[];
+		};
+		type SearchResult = { data: () => Promise<SearchEntry> };
+		type Pagefind = { search: (query: string) => Promise<{ results: SearchResult[] }> };
+		let pagefindPromise: Promise<Pagefind> | undefined;
+
+		function setOpen(open: boolean) {
+			dropdown.hidden = !open;
+			input.setAttribute("aria-expanded", String(open));
+		}
+
+		async function runSearch() {
+			const query = input.value.trim();
+			const current = ++version;
+			results.replaceChildren();
+			if (!query) {
+				status.textContent = "";
+				setOpen(false);
+				return;
+			}
+			setOpen(true);
+			status.textContent = search.dataset.loading ?? (document.documentElement.lang === "en" ? "Searching…" : "Keresés…");
+			try {
+				const searchModule = "/pagefind/pagefind.js";
+				pagefindPromise ??= import(/* @vite-ignore */ searchModule);
+				const pagefind = await pagefindPromise;
+				const matches = await pagefind.search(query);
+				const entries = await Promise.all(matches.results.map((result) => result.data()));
+				if (current !== version) return;
+				status.textContent = entries.length
+					? `${matches.results.length} ${search.dataset.count}`
+					: search.dataset.empty ?? "";
+				for (const entry of entries) {
+					const link = document.createElement("a");
+					link.href = entry.url;
+					const sectionTitle = entry.sub_results[0]?.title.replace(/[↑↓\s]+$/u, "").trim();
+					const titleParts = entry.meta.title.split(" | ");
+					if (sectionTitle && titleParts.length > 1 && titleParts[0] === sectionTitle) {
+						titleParts.shift();
+					}
+					const title = document.createElement("span");
+					title.className = "search-result-page";
+					title.textContent = titleParts.join(" | ");
+					link.append(title);
+					if (sectionTitle && sectionTitle !== titleParts[0]) {
+						const section = document.createElement("strong");
+						section.className = "search-result-section";
+						section.textContent = sectionTitle;
+						link.append(section);
+					}
+					const excerpt = document.createElement("span");
+					excerpt.className = "search-result-excerpt";
+					const text = document.createElement("textarea");
+					text.innerHTML = entry.plain_excerpt;
+					excerpt.textContent = text.value;
+					link.append(excerpt);
+					results.append(link);
+				}
+			} catch (error) {
+				if (current !== version) return;
+				pagefindPromise = undefined;
+				console.error("Search index could not be loaded:", error);
+				status.textContent = search.dataset.error ?? "";
+			}
+		}
+
+		input.addEventListener("input", () => {
+			version++;
+			clearTimeout(timer);
+			results.replaceChildren();
+			if (!input.value.trim()) {
+				results.replaceChildren();
+				status.textContent = "";
+				setOpen(false);
+			} else {
+				timer = setTimeout(runSearch, 200);
+			}
+		});
+		input.addEventListener("focus", () => {
+			if (input.value.trim()) {
+				if (results.childElementCount || status.textContent) setOpen(true);
+				else void runSearch();
+			}
+		});
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const first = results.querySelector<HTMLAnchorElement>("a");
+			if (first && !dropdown.hidden) first.click();
+			else {
+				clearTimeout(timer);
+				void runSearch();
+			}
+		});
+		document.addEventListener("pointerdown", (event) => {
+			if (event.target instanceof Node && !search.contains(event.target)) {
+				clearTimeout(timer);
+				version++;
+				if (!results.childElementCount) status.textContent = "";
+				setOpen(false);
+			}
+		});
+		search.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") {
+				input.focus();
+				clearTimeout(timer);
+				version++;
+				setOpen(false);
+			}
+		});
+	}
+</script>
+
+<style>
+	.site-search {
+		position: absolute;
+		top: 20px;
+		right: 25px;
+		width: min(300px, calc(100% - 865px));
+		font-family: "Special Elite", "Segoe UI", sans-serif;
+		pointer-events: auto;
+	}
+
+	form {
+		display: flex;
+		gap: 5px;
+	}
+
+	.search-label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	input, button {
+		min-width: 0;
+		height: 42px;
+		border: 1px solid var(--color-bronze);
+		border-radius: 4px;
+		background: #f5f0e8;
+		color: var(--color-gold-brown);
+	}
+
+	input {
+		flex: 1;
+		padding: 0 9px;
+		font: 0.9rem "Special Elite", "Segoe UI", sans-serif;
+	}
+
+	button {
+		padding: 0 10px;
+		font: 1.15rem "Mouse Memoirs", "Segoe UI", sans-serif;
+		cursor: pointer;
+	}
+
+	.search-dropdown {
+		position: absolute;
+		top: calc(100% + 6px);
+		right: 0;
+		width: max(100%, 320px);
+		max-width: min(480px, 90vw);
+		max-height: min(60vh, 500px);
+		overflow-y: auto;
+		padding: 8px;
+		border: 1px solid var(--color-bronze);
+		border-radius: 4px;
+		background: var(--color-paper-light);
+		box-shadow: 0 5px 16px rgb(0 0 0 / 20%);
+	}
+
+	.search-status {
+		margin: 4px;
+		color: var(--color-gold-brown);
+		font-family: "Mouse Memoirs", "Segoe UI", sans-serif;
+		font-size: 1.15rem;
+		line-height: 1.4;
+	}
+
+	.search-results :global(a) {
+		display: block;
+		padding: 9px;
+		border-radius: 4px;
+		background: transparent;
+		color: var(--color-moss-deep);
+		font: 0.85rem "Special Elite", "Segoe UI", sans-serif;
+		line-height: 1.4;
+		text-align: left;
+		text-decoration: none;
+	}
+
+	.search-results :global(a + a) {
+		border-top: 1px solid var(--color-line);
+	}
+
+	.search-results :global(a:hover),
+	.search-results :global(a:focus-visible) {
+		background: rgb(0 0 0 / 8%);
+	}
+
+	.search-results :global(strong),
+	.search-results :global(span) {
+		display: block;
+	}
+
+	.search-results :global(.search-result-page),
+	.search-results :global(.search-result-section) {
+		font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
+		font-variant: small-caps;
+		font-weight: 400;
+	}
+
+	.search-results :global(.search-result-page) {
+		font-size: 0.95rem;
+	}
+
+	.search-results :global(.search-result-section) {
+		margin-top: 4px;
+		font-size: 1.05rem;
+	}
+
+	.search-results :global(.search-result-excerpt) {
+		margin-top: 5px;
+	}
+
+	@media (min-width: 1101px) and (max-width: 1500px) {
+		.site-search {
+			top: 82px;
+			left: 39px;
+			right: auto;
+			width: min(360px, calc(100% - 78px));
+		}
+
+		:global(.site-navigation-wide) .site-search {
+			top: 20px;
+			left: auto;
+			right: 25px;
+			width: 310px;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		.site-search {
+			position: relative;
+			top: auto;
+			right: auto;
+			width: min(400px, calc(100% - 32px));
+			margin: 0 16px;
+			padding-bottom: 10px;
+		}
+	}
+</style>

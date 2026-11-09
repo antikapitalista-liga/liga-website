@@ -1,0 +1,14 @@
+---
+import { announcementHighlight } from "../data/aktualis";
+import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
+
+interface Props {
+	lang?: "hu" | "en";
+}
+
+const { lang = "hu" } = Astro.props;
+---
+
+<CurrentCategoryDescription
+	text={lang === "en" ? announcementHighlight.englishTitle : announcementHighlight.title}
+/>

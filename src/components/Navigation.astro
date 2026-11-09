@@ -1,10 +1,13 @@
 ---
+import SiteSearch from "./SiteSearch.astro";
+
 interface Props {
 	wide?: boolean;
 	magazine?: boolean;
+	lang?: "hu" | "en";
 }
 
-const { wide = false, magazine = false } = Astro.props;
+const { wide = false, magazine = false, lang = "hu" } = Astro.props;
 const currentPath = Astro.url.pathname;
 const isMagazinePath = currentPath.startsWith("/magazin/");
 const items = [
@@ -37,4 +40,5 @@ const items = [
 			</li>
 		))}
 	</ul>
+	<SiteSearch lang={lang} />
 </nav>

@@ -1,8 +1,10 @@
 ---
 import MainLayout from "../../../layouts/MainLayout.astro";
 import MagazineParent from "../../../components/MagazineParent.astro";
+import CurrentAnnouncement from "../../../components/CurrentAnnouncement.astro";
 import CurrentCategoryDescription from "../../../components/CurrentCategoryDescription.astro";
-import { aktualisCategories, honlapNews } from "../../../data/aktualis";
+import MagazineArticle from "../../../components/MagazineArticle.astro";
+import { aktualisCategories, articlesByCategory, sortArticlesByDate } from "../../../data/aktualis";
 
 export function getStaticPaths() {
 	return aktualisCategories.map((category) => ({
@@ -12,6 +14,7 @@ export function getStaticPaths() {
 }
 
 const { category } = Astro.props;
+const articles = sortArticlesByDate(articlesByCategory[category.slug] ?? []);
 ---
 
 <MainLayout
@@ -25,24 +28,16 @@ const { category } = Astro.props;
 			Aktuális: {category.label}
 			<a class="current-category-back" href="/magazin/aktualis/" aria-label="Vissza az Aktuális áttekintő oldalára">↑↑</a>
 		</h1>
-		<CurrentCategoryDescription text={category.description} />
+		{category.description && <CurrentCategoryDescription text={category.description} />}
+		{category.slug === "hirdetmenyek" && <CurrentAnnouncement />}
 	</header>
 	<main>
 		<section aria-labelledby="current-category-title">
-			{category.slug === "part-hirek" ? (
-				<article class="current-article" aria-labelledby="honlap-title">
-					<h2 class="current-article-title" id="honlap-title">{honlapNews.title}</h2>
-					<p class="current-article-meta">Közzétevő: Horváth Tamás</p>
-					<p><strong>{honlapNews.subtitle}</strong></p>
-					<p>A mai naptól nyilvánosan is elérhető az Antikapitalista Liga Magyarország hivatalos honlapja.</p>
-					<p>A weboldalon jelenleg a Liga alapvető dokumentumai és programadó anyagai érhetők el, a következő időszakban azonban folyamatosan bővül majd új tartalmakkal, elemzésekkel és tájékoztató anyagokkal.</p>
-					<p>A honlap célja, hogy bemutassa a szervezet célkitűzéseit, értékrendjét és tevékenységét, valamint kapcsolódási lehetőséget kínáljon minden érdeklődő számára.</p>
-					<p>Várjuk azok jelentkezését, akik szimpatizálnak az Antikapitalista Liga Magyarország céljaival, és szívesen bekapcsolódnának munkánkba vagy támogatnák kezdeményezéseinket.</p>
-					<p class="current-article-meta">Közzététel dátuma: <time datetime="2026-11-08">2026. november 8.</time></p>
-				</article>
-			) : (
+			{articles.length > 0 ? (
+				articles.map((article) => <MagazineArticle article={article} linkTitle />)
+			) : category.slug !== "hirdetmenyek" && category.slug !== "part-hirek" ? (
 				<p>A rovat írásai hamarosan itt lesznek elérhetők.</p>
-			)}
+			) : null}
 		</section>
 	</main>
 </MainLayout>
@@ -52,20 +47,4 @@ const { category } = Astro.props;
 		margin-bottom: 0;
 	}
 
-	.current-article {
-		margin-top: 0;
-		padding-top: 0;
-		border-top: 0;
-	}
-
-	.current-article-title {
-		margin: 16px 0 8px;
-		font-size: 1.75rem;
-	}
-
-	.current-article-meta {
-		font-family: "Mouse Memoirs", "Segoe UI", sans-serif;
-		font-size: 1rem;
-		line-height: 1.4;
-	}
 </style>

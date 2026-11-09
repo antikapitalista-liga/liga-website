@@ -1,0 +1,257 @@
+---
+import type { Article } from "../data/aktualis";
+
+interface Props {
+	article: Article;
+	linkTitle?: boolean;
+}
+
+const { article, linkTitle = false } = Astro.props;
+const shareUrl = new URL(article.url, Astro.site).href;
+const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+---
+
+<article class="magazine-article" aria-labelledby={`${article.id}-title`}>
+	<h2 class="current-article-title" id={`${article.id}-title`}>
+		{linkTitle ? <a href={article.url}>{article.title}</a> : article.title}
+	</h2>
+	{article.author && <p class="current-article-meta">Közzétevő: {article.author}</p>}
+	<div class="article-body">
+		<p><strong>{article.subtitle}</strong></p>
+		{article.paragraphs.map((paragraph) => (
+			typeof paragraph === "string" ? (
+				<p>{paragraph}</p>
+			) : (
+				<p class="article-highlight"><strong>{paragraph.text}</strong></p>
+			)
+		))}
+		{article.image && (
+			<a href={article.image.src} aria-label="A kép megnyitása teljes méretben">
+				<img class="article-image" src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} data-pagefind-index-attrs="alt" />
+			</a>
+		)}
+	</div>
+	<p class="current-article-meta article-date">
+		Közzététel dátuma: <time datetime={article.publishedAt}>{article.publishedLabel}</time>
+	</p>
+	{linkTitle && (
+		<div class="article-divider" aria-hidden="true">
+			<svg class="divider-strand" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">
+				<path d="M2 10 C38 10 54 9 78 10 S130 11 158 10 S207 10 238 10" stroke-width="1" vector-effect="non-scaling-stroke" />
+				<path d="M2 6 C17 6 22 12 41 10 S66 8 82 10 M2 14 C15 14 24 8 41 10 S67 12 82 10" stroke-width=".7" vector-effect="non-scaling-stroke" />
+				<path d="M11 8 C28 8 33 12 50 10 M13 12 C30 12 35 8 50 10" stroke-width=".55" vector-effect="non-scaling-stroke" />
+			</svg>
+			<img class="divider-symbol" src="/antikapitalista-jelkep.png" alt="" width="378" height="639" />
+			<svg class="divider-strand divider-strand-right" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">
+				<path d="M2 10 C38 10 54 9 78 10 S130 11 158 10 S207 10 238 10" stroke-width="1" vector-effect="non-scaling-stroke" />
+				<path d="M2 6 C17 6 22 12 41 10 S66 8 82 10 M2 14 C15 14 24 8 41 10 S67 12 82 10" stroke-width=".7" vector-effect="non-scaling-stroke" />
+				<path d="M11 8 C28 8 33 12 50 10 M13 12 C30 12 35 8 50 10" stroke-width=".55" vector-effect="non-scaling-stroke" />
+			</svg>
+		</div>
+	)}
+	{!linkTitle && (
+		<div class="article-share" data-pagefind-ignore data-article-share data-share-url={shareUrl} data-share-title={article.title} data-share-text={article.subtitle}>
+			<button class="article-share-button" type="button" data-share-native hidden>Megosztás</button>
+			<button class="article-share-button" type="button" data-share-copy>Hivatkozás másolása</button>
+			<a class="article-share-button" href={facebookShareUrl} target="_blank" rel="noopener noreferrer">Facebook</a>
+			<input class="article-share-url" type="text" readonly aria-label="Másolható hivatkozás" hidden />
+			<span class="article-share-status" role="status" aria-live="polite" hidden></span>
+		</div>
+	)}
+</article>
+
+<script>
+	const articleShares = document.querySelectorAll<HTMLElement>("[data-article-share]");
+
+	for (const articleShare of articleShares) {
+		const shareButton = articleShare.querySelector<HTMLButtonElement>("[data-share-native]");
+		const copyButton = articleShare.querySelector<HTMLButtonElement>("[data-share-copy]");
+		const shareUrl = articleShare.dataset.shareUrl;
+		const status = articleShare.querySelector<HTMLElement>(".article-share-status");
+		const urlInput = articleShare.querySelector<HTMLInputElement>(".article-share-url");
+		let statusTimeout: ReturnType<typeof setTimeout>;
+
+		if (!shareUrl || !status || !urlInput || !copyButton) {
+			throw new Error("A cikk megosztási felülete hiányos.");
+		}
+
+		const showStatus = (message: string) => {
+			status.textContent = message;
+			status.hidden = false;
+			clearTimeout(statusTimeout);
+			statusTimeout = setTimeout(() => {
+				status.hidden = true;
+				status.textContent = "";
+			}, 2500);
+		};
+
+		if (shareButton && typeof navigator.share === "function") {
+			shareButton.hidden = false;
+			shareButton.addEventListener("click", async () => {
+				try {
+					await navigator.share({
+						title: articleShare.dataset.shareTitle,
+						text: articleShare.dataset.shareText,
+						url: shareUrl,
+					});
+				} catch (error) {
+					if (error instanceof DOMException && error.name === "AbortError") {
+						return;
+					}
+					showStatus("A megosztás nem sikerült. Próbáld a hivatkozás másolását.");
+				}
+			});
+		}
+
+		copyButton.addEventListener("click", async () => {
+			try {
+				if (!navigator.clipboard) {
+					throw new Error("A vágólap API nem érhető el.");
+				}
+				await navigator.clipboard.writeText(shareUrl);
+				urlInput.hidden = true;
+				showStatus("A hivatkozás a vágólapra került.");
+			} catch {
+				urlInput.value = shareUrl;
+				urlInput.hidden = false;
+				urlInput.select();
+				showStatus("A hivatkozás automatikus másolása nem sikerült. Jelöld ki és másold ki a mező tartalmát.");
+			}
+		});
+	}
+</script>
+
+<style>
+	.magazine-article {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.magazine-article + .magazine-article {
+		margin-top: 40px;
+	}
+
+	.current-article-title {
+		margin: 16px 0 8px;
+		font-size: 1.75rem;
+	}
+
+	.current-article-title a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.current-article-title a:hover,
+	.current-article-title a:focus-visible {
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.current-article-meta {
+		font-family: "Mouse Memoirs", "Segoe UI", sans-serif;
+		font-size: 1rem;
+		line-height: 1.4;
+	}
+
+	.article-body {
+		display: flow-root;
+	}
+
+	.article-body > p:last-child {
+		margin-bottom: 0;
+	}
+
+	.article-highlight {
+		margin-inline: clamp(16px, 5%, 40px);
+	}
+
+	.article-date {
+		margin-top: 8px;
+	}
+
+	.article-image {
+		display: block;
+		max-width: 100%;
+		width: auto;
+		height: auto;
+	}
+
+	.article-divider {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		width: min(600px, 100%);
+		margin: 16px auto 0;
+		color: var(--color-gold-brown);
+	}
+
+	.divider-strand {
+		display: block;
+		flex: 1 1 0;
+		min-width: 0;
+		height: 20px;
+		position: relative;
+		top: 5px;
+	}
+
+	.divider-strand-right {
+		transform: scaleX(-1);
+	}
+
+	.divider-symbol {
+		display: block;
+		flex: none;
+		width: auto;
+		height: 52px;
+	}
+
+	.article-share {
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		margin-top: 24px;
+		font-family: "Mouse Memoirs", "Segoe UI", sans-serif;
+	}
+
+	.article-share-button {
+		padding: 4px 10px;
+		border: 1px solid var(--color-bronze);
+		border-radius: 4px;
+		background: var(--color-paper-light);
+		color: var(--color-gold-brown);
+		font: inherit;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.article-share-button:hover {
+		background: #ece5d9;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.article-share-url {
+		flex: 1 1 100%;
+		max-width: 100%;
+		padding: 6px;
+		font: inherit;
+	}
+
+	.article-share-status {
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+		z-index: 1;
+		max-width: 100%;
+		padding: 2px 7px;
+		border: 1px solid var(--color-line);
+		border-radius: 4px;
+		background: var(--color-paper-light);
+		font-size: 0.85rem;
+		line-height: 1.3;
+		box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+	}
+</style>

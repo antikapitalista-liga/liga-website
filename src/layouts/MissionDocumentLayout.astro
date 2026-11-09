@@ -42,7 +42,7 @@ const { title, description, topId } = Astro.props;
 	@media (max-width: 760px) {
 		.mission-document-header,
 		.mission-document-content :global(.document-chapter-heading) {
-			scroll-margin-top: 120px;
+			scroll-margin-top: calc(var(--site-nav-height) + 16px);
 		}
 	}
 </style>

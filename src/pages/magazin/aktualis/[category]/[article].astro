@@ -1,0 +1,47 @@
+---
+import MainLayout from "../../../../layouts/MainLayout.astro";
+import MagazineParent from "../../../../components/MagazineParent.astro";
+import CurrentAnnouncement from "../../../../components/CurrentAnnouncement.astro";
+import CurrentCategoryDescription from "../../../../components/CurrentCategoryDescription.astro";
+import MagazineArticle from "../../../../components/MagazineArticle.astro";
+import { aktualisCategories, articlesByCategory } from "../../../../data/aktualis";
+
+export function getStaticPaths() {
+	return aktualisCategories.flatMap((category) => {
+		const articles = articlesByCategory[category.slug] ?? [];
+		return articles.map((article) => ({
+			params: { category: category.slug, article: article.slug },
+			props: { category, article },
+		}));
+	});
+}
+
+const { category, article } = Astro.props;
+---
+
+<MainLayout
+	title={`${article.title} | ${category.label} | Aktuális | Magazin | Antikapitalista Liga Magyarország`}
+	description={article.subtitle}
+	theme="magazine"
+>
+	<header class="current-category-header">
+		<MagazineParent />
+		<h1 id="current-category-title">
+			Aktuális: {category.label}
+			<a class="current-category-back" href={`/magazin/aktualis/${category.slug}/`} aria-label={`Vissza a ${category.label} oldalára`}>↑↑</a>
+		</h1>
+		{category.description && <CurrentCategoryDescription text={category.description} />}
+		{category.slug === "hirdetmenyek" && <CurrentAnnouncement />}
+	</header>
+	<main>
+		<section aria-labelledby="current-category-title">
+			<MagazineArticle article={article} />
+		</section>
+	</main>
+</MainLayout>
+
+<style>
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>

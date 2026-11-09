@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import CurrentLinks from "../components/CurrentLinks.astro";
+import SiteMotto from "../components/SiteMotto.astro";
 ---
 
 <MainLayout
@@ -35,7 +36,7 @@ import CurrentLinks from "../components/CurrentLinks.astro";
 			</nav>
 		</aside>
 
-		<section class="home-content" aria-labelledby="home-title">
+		<section class="home-content" aria-labelledby="home-title" data-pagefind-body>
 			<h1 id="home-title" class="home-title" tabindex="-1">ANTIKAPITALISTA LIGA</h1>
 			<p class="home-country">MAGYARORSZÁG</p>
 
@@ -59,6 +60,7 @@ import CurrentLinks from "../components/CurrentLinks.astro";
 				</p>
 			</div>
 
+			<SiteMotto />
 		</section>
 		<aside class="home-right">
 			<div class="home-panel">

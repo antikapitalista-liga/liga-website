@@ -1,14 +1,15 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import MagazineParent from "../../components/MagazineParent.astro";
+import CurrentAnnouncement from "../../components/CurrentAnnouncement.astro";
 import CurrentCategoryDescription from "../../components/CurrentCategoryDescription.astro";
 import CurrentNews from "../../components/CurrentNews.astro";
-import { aktualisCategories } from "../../data/aktualis";
+import { aktualisCategories, articlesByCategory, getRecentArticles } from "../../data/aktualis";
 ---
 
 <MainLayout
 	title="Aktuális | Magazin | Antikapitalista Liga Magyarország"
-	description="Alternatív hírek, párthírek és események az Antikapitalista Liga Magyarország magazinjában."
+	description="Párthírek, hirdetmények, események és alternatív hírek az Antikapitalista Liga Magyarország magazinjában."
 	theme="magazine"
 >
 	<header class="current-overview-header">
@@ -21,10 +22,12 @@ import { aktualisCategories } from "../../data/aktualis";
 				<h2 class="current-category-title" id={`${category.slug}-title`}>
 					<a href={`/magazin/aktualis/${category.slug}/`}>{category.label}</a>
 				</h2>
-				<CurrentCategoryDescription text={category.description} />
-				{category.slug === "part-hirek" ? (
-					<CurrentNews />
-				) : (
+				{category.description && <CurrentCategoryDescription text={category.description} />}
+				{category.slug === "hirdetmenyek" && <CurrentAnnouncement />}
+				{getRecentArticles(articlesByCategory[category.slug] ?? []).map((article) => (
+					<CurrentNews article={article} />
+				))}
+				{!articlesByCategory[category.slug]?.length && category.slug !== "hirdetmenyek" && category.slug !== "part-hirek" && (
 					<p>A rovat írásai hamarosan itt lesznek elérhetők.</p>
 				)}
 			</section>

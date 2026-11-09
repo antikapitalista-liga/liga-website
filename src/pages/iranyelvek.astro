@@ -285,12 +285,12 @@ const guidelinesContent = guidelinesContentWithHeadings.replace(
 
 	@media (max-width: 760px) {
 		.guidelines-page-header {
-			scroll-margin-top: 120px;
+			scroll-margin-top: calc(var(--site-nav-height) + 16px);
 		}
 
 		:global(.guidelines-copy h1),
 		:global(.guidelines-copy h2) {
-			scroll-margin-top: 120px;
+			scroll-margin-top: calc(var(--site-nav-height) + 16px);
 		}
 	}
 </style>

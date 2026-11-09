@@ -3,6 +3,7 @@ import "../styles/site.css";
 import Navigation from "../components/Navigation.astro";
 import SiteIdentity from "../components/SiteIdentity.astro";
 import CurrentLinks from "../components/CurrentLinks.astro";
+import SiteMotto from "../components/SiteMotto.astro";
 
 interface Props {
 	title: string;
@@ -23,6 +24,7 @@ const { title, description, lang = "hu", frame = "brand-rail", theme = "default"
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="description" content={description} />
+		<meta data-pagefind-meta="title[content]" content={title} />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 		<meta property="og:type" content="website" />
@@ -38,7 +40,7 @@ const { title, description, lang = "hu", frame = "brand-rail", theme = "default"
 		<title>{title}</title>
 	</head>
 	<body>
-		<Navigation wide={frame === "wide"} magazine={theme === "magazine"} />
+		<Navigation wide={frame === "wide"} magazine={theme === "magazine"} lang={lang} />
 		{frame === "wide" ? (
 			<slot />
 		) : (
@@ -46,8 +48,9 @@ const { title, description, lang = "hu", frame = "brand-rail", theme = "default"
 				<aside class="site-brand" aria-label={brandLabel ?? (lang === "en" ? "Organization" : "Szervezet")}>
 					<slot name="brand"><SiteIdentity lang={lang} /></slot>
 				</aside>
-				<div class="site-content">
+				<div class="site-content" data-pagefind-body>
 					<slot />
+					<SiteMotto />
 				</div>
 				<aside class="site-context" aria-label={lang === "en" ? "Current affairs" : "Aktuális"}>
 					<section class="site-context-panel">

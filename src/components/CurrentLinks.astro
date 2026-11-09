@@ -1,5 +1,6 @@
 ---
-import { aktualisCategories } from "../data/aktualis";
+import { aktualisCategories, articlesByCategory, getRecentArticles } from "../data/aktualis";
+import CurrentAnnouncement from "./CurrentAnnouncement.astro";
 import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
 import CurrentNews from "./CurrentNews.astro";
 
@@ -16,10 +17,13 @@ const { lang = "hu" } = Astro.props;
 			<a href={`/magazin/aktualis/${category.slug}/`}>
 				{lang === "en" ? category.englishLabel : category.label}
 			</a>
-			<CurrentCategoryDescription text={lang === "en" ? category.englishDescription : category.description} />
-			{category.slug === "part-hirek" && (
-				<CurrentNews />
+			{(lang === "en" ? category.englishDescription : category.description) && (
+				<CurrentCategoryDescription text={lang === "en" ? category.englishDescription : category.description} />
 			)}
+			{category.slug === "hirdetmenyek" && <CurrentAnnouncement lang={lang} />}
+			{getRecentArticles(articlesByCategory[category.slug] ?? []).map((article) => (
+				<CurrentNews article={article} />
+			))}
 		</li>
 	))}
 </ul>

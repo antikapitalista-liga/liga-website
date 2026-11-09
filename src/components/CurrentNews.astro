@@ -1,11 +1,17 @@
 ---
-import { honlapNews } from "../data/aktualis";
+import type { Article } from "../data/aktualis";
+
+interface Props {
+	article: Article;
+}
+
+const { article } = Astro.props;
 ---
 
 <div class="current-news" lang="hu">
-	<a href={honlapNews.url}>
-		<span class="current-article-title">{honlapNews.title}</span>
-		<strong>{honlapNews.subtitle}</strong>
+	<a href={article.url}>
+		<span class="current-article-title">{article.title}</span>
+		<strong>{article.subtitle}</strong>
 	</a>
 </div>
 
@@ -16,6 +22,15 @@ import { honlapNews } from "../data/aktualis";
 
 	.current-news a {
 		display: block;
+	}
+
+	.current-news .current-article-title {
+		display: block;
+		text-transform: lowercase;
+	}
+
+	.current-news .current-article-title::first-letter {
+		text-transform: uppercase;
 	}
 
 	.current-news strong {
