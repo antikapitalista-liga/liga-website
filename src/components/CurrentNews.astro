@@ -1,18 +1,28 @@
 ---
 import type { Article } from "../data/aktualis";
+import ArticleByline from "./ArticleByline.astro";
+import ArticlePublisher from "./ArticlePublisher.astro";
 
 interface Props {
 	article: Article;
+	compact?: boolean;
 }
 
-const { article } = Astro.props;
+const { article, compact = false } = Astro.props;
 ---
 
-<div class="current-news" lang="hu">
-	<a href={article.url}>
-		<span class="current-article-title">{article.title}</span>
-		<strong>{article.subtitle}</strong>
-	</a>
+<div class:list={["current-news", compact && "current-news-compact"]} lang="hu">
+	<a href={article.url}><span class="current-article-title">{article.title}</span></a>
+	{!compact && <ArticleByline />}
+	<strong>{article.subtitle}</strong>
+	{!compact && (
+		<>
+			<p class="current-article-meta article-date">
+				Közzététel dátuma: <time datetime={article.publishedAt}>{article.publishedLabel}</time>
+			</p>
+			<ArticlePublisher />
+		</>
+	)}
 </div>
 
 <style>
@@ -20,7 +30,7 @@ const { article } = Astro.props;
 		margin: 8px 0 12px 12px;
 	}
 
-	.current-news a {
+	.current-news > a {
 		display: block;
 	}
 
@@ -33,12 +43,20 @@ const { article } = Astro.props;
 		text-transform: uppercase;
 	}
 
-	.current-news strong {
+	.current-news > strong {
 		display: block;
 		margin-top: 4px;
 		font-family: "Special Elite", "Segoe UI", sans-serif;
 		font-size: 0.9rem;
 		line-height: 1.5;
 		text-transform: none;
+	}
+
+	.current-news-compact > strong {
+		margin-top: 12px;
+	}
+
+	.current-news .article-date {
+		margin: 4px 0 0;
 	}
 </style>

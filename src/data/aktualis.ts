@@ -2,7 +2,6 @@ export interface Article {
 	id: string;
 	slug: string;
 	title: string;
-	author?: string;
 	subtitle: string;
 	publishedAt: string;
 	publishedLabel: string;
@@ -54,11 +53,10 @@ export const honlapNews = {
 	id: "honlap",
 	slug: "honlap",
 	title: "Honlap",
-	author: "Horváth Tamás",
 	subtitle: "Nyilvánosan elérhető az Antikapitalista Liga Magyarország honlapja",
 	publishedAt: "2026-11-08",
 	publishedLabel: "2026. november 8.",
-	url: "/magazin/aktualis/part-hirek/honlap/",
+	url: "/aktualis/part-hirek/honlap/",
 	paragraphs: [
 		"A mai naptól nyilvánosan is elérhető az Antikapitalista Liga Magyarország hivatalos honlapja.",
 		"A weboldalon jelenleg a Liga alapvető dokumentumai és programadó anyagai érhetők el, a következő időszakban azonban folyamatosan bővül majd új tartalmakkal, elemzésekkel és tájékoztató anyagokkal.",
@@ -74,11 +72,10 @@ export const announcementArticles: Article[] = [
 		id: "gazdatlan-temakorok",
 		slug: "gazdatlan-temakorok",
 		title: "Gazdátlan témakörök",
-		author: "ALMA",
 		subtitle: "Gazdátlan ügyek, amelyekért felelősek vagyunk",
 		publishedAt: "2026-10-12",
 		publishedLabel: "2026. október 12.",
-		url: "/magazin/aktualis/hirdetmenyek/gazdatlan-temakorok/",
+		url: "/aktualis/hirdetmenyek/gazdatlan-temakorok/",
 		paragraphs: [],
 		image: {
 			src: "/gazdatlan-temakorok-plakat.jpg",
@@ -91,11 +88,10 @@ export const announcementArticles: Article[] = [
 		id: "magyarorszagi-erdok-vedelmeben",
 		slug: "magyarorszagi-erdok-vedelmeben",
 		title: "AZ ANTIKAPITALISTA LIGA A MAGYARORSZÁGI ERDŐK VÉDELMÉBEN",
-		author: "ALMA",
 		subtitle: "Magyarország minden erdejét védelem alá kell helyezni!",
 		publishedAt: "2026-10-03",
 		publishedLabel: "2026. október 3.",
-		url: "/magazin/aktualis/hirdetmenyek/magyarorszagi-erdok-vedelmeben/",
+		url: "/aktualis/hirdetmenyek/magyarorszagi-erdok-vedelmeben/",
 		paragraphs: [
 			"Az Antikapitalista Liga döntési helyzetbe kerülve garantáltan kezdeményezi az Erdőtörvény teljes megújítását, hogy Magyarország erdei valódi és feltétlen védelmet kapjanak.",
 			"Megújítjuk a törvényalkotás egész eddigi rendjét. Olyan jogi keretrendszer kialakítását kezdeményezzük, amely a jelenlegi Alaptörvényhez hasonló, kiemelt jogi védettséget biztosít az alapvető társadalmi és természeti értékeknek, ugyanakkor nem teszi azok védelmét kizárólag a mindenkori parlamenti kétharmados többségtől függővé. Célunk, hogy az ilyen alapvető garanciák módosítása szélesebb társadalmi legitimációhoz és szigorúbb eljárási feltételekhez kötődjön, ne válhasson a mindenkori politikai erőviszonyok egyszerű következményévé.",
@@ -117,11 +113,10 @@ export const announcementArticles: Article[] = [
 		id: "sokba-fog-kerulni",
 		slug: "sokbafogker",
 		title: "Sokba fog kerülni",
-		author: "ALMA",
 		subtitle: "Sokba kerül majd rendbe tenni, amit szétvertünk, de a lehetőségünk a jövőre csak így marad meg.",
 		publishedAt: "2026-08-08",
 		publishedLabel: "2026. augusztus 8.",
-		url: "/magazin/aktualis/hirdetmenyek/sokbafogker/",
+		url: "/aktualis/hirdetmenyek/sokbafogker/",
 		paragraphs: [],
 		image: {
 			src: "/nehez-valasztas-plakat.png",

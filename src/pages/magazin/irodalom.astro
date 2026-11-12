@@ -1,6 +1,5 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
-import MagazineParent from "../../components/MagazineParent.astro";
 ---
 
 <MainLayout
@@ -8,18 +7,28 @@ import MagazineParent from "../../components/MagazineParent.astro";
 	description="Irodalmi szövegek és olvasmányok az Antikapitalista Liga Magyarország magazinjában."
 	theme="magazine"
 >
-	<header>
-		<MagazineParent />
-		<h1>Irodalom</h1>
+	<header class="current-category-header">
+		<h1 id="current-category-title">
+			Magazin: Irodalom
+			<a class="current-category-back" href="/magazin/" aria-label="Vissza a Magazin áttekintő oldalára">↑↑</a>
+		</h1>
 		<p>
 			Irodalmi művek és olvasmányok, amelyek az emberi méltóság, a közösség és a társadalom
 			kérdéseit járják körül.
 		</p>
 	</header>
 	<main>
-		<p>
-			Az irodalmi rovat készülőben van. Hamarosan itt jelennek meg a rovat szövegei és
-			olvasmányajánlói.
-		</p>
+		<section aria-labelledby="current-category-title">
+			<p>
+				Az irodalmi rovat készülőben van. Hamarosan itt jelennek meg a rovat szövegei és
+				olvasmányajánlói.
+			</p>
+		</section>
 	</main>
 </MainLayout>
+
+<style>
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>

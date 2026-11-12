@@ -5,25 +5,27 @@ import MagazineNavigation from "../../components/MagazineNavigation.astro";
 
 <MainLayout
 	title="Magazin | Antikapitalista Liga Magyarország"
-	description="Vélemények, esszék, irodalmi írások, podcastok és aktuális hírek az Antikapitalista Liga Magyarország magazinjában."
+	description="Vélemények, kisesszék, publicisztikák, irodalmi írások és podcastok az Antikapitalista Liga Magyarország magazinjában."
 	theme="magazine"
 >
-	<header>
+	<header class="current-overview-header">
 		<h1 class="magazine-title">Magazin</h1>
-		<p>
-			Vélemények, esszék, irodalmi írások, podcastok és aktuális hírek a társadalom, a
-			gazdaság és a közös élet kérdéseiről.
-		</p>
 	</header>
-	<main>
-		<section aria-labelledby="magazine-about">
-			<h2 class="current-category-title" id="magazine-about">A rovatokról</h2>
-			<p>
-				Az Antikapitalista Liga Magazin oldalát egy olyan online, önállóan is értelmezhető
-				portálként szeretnénk működtetni, amelyik a párt eszmeiségéhez közelálló szerzőknek
-				ad lehetőséget megjelenésre.
-			</p>
-		</section>
+	<main class="current-overview">
 		<MagazineNavigation />
 	</main>
 </MainLayout>
+
+<style>
+	.current-overview-header h1 {
+		margin-bottom: 0;
+	}
+
+	.current-overview section:first-child h2 {
+		margin-top: 16px;
+	}
+
+	.current-overview h2 {
+		margin-bottom: 4px;
+	}
+</style>

@@ -1,17 +1,63 @@
 ---
+import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
+import CurrentNews from "./CurrentNews.astro";
+import { esszek } from "../data/esszek";
+
 const categories = [
-	{ href: "/magazin/velemeny/", label: "Vélemény" },
-	{ href: "/magazin/essze/", label: "Esszé" },
-	{ href: "/magazin/irodalom/", label: "Irodalom" },
-	{ href: "/magazin/vendegszoveg/", label: "Vendégszöveg" },
-	{ href: "/magazin/podcast/", label: "Podcast" },
-	{ href: "/magazin/aktualis/", label: "Aktuális" },
+	{
+		slug: "velemeny",
+		href: "/magazin/velemeny/",
+		label: "Vélemény",
+		description: "Rövid állásfoglalások és gondolatok társadalmi, gazdasági és politikai kérdésekről.",
+		articles: [],
+	},
+	{
+		slug: "kisessze",
+		href: "/magazin/essze/",
+		label: "Kisesszé",
+		articles: esszek,
+	},
+	{
+		slug: "publicisztika",
+		href: "/magazin/publicisztika/",
+		label: "Publicisztika",
+		description: "Közéleti írások és állásfoglalások a társadalom, a gazdaság és a politika aktuális kérdéseiről.",
+		articles: [],
+	},
+	{
+		slug: "irodalom",
+		href: "/magazin/irodalom/",
+		label: "Irodalom",
+		description: "Irodalmi művek és olvasmányok az emberi méltóság, a közösség és a társadalom kérdéseiről.",
+		articles: [],
+	},
+	{
+		slug: "vendegszoveg",
+		href: "/magazin/vendegszoveg/",
+		label: "Vendégszöveg",
+		articles: [],
+	},
+	{
+		slug: "liga-szotar",
+		href: "/magazin/liga-szotar/",
+		label: "Liga Szótár",
+		articles: [],
+	},
+	{
+		slug: "podcast",
+		href: "/magazin/podcast/",
+		label: "Podcast",
+		description: "Beszélgetések társadalmi, gazdasági és kulturális kérdésekről, több szempontból.",
+		articles: [],
+	},
 ];
 ---
-<nav class="magazine-navigation" aria-label="Magazin rovatok">
-	<ul class="current-links">
-		{categories.map((category) => (
-			<li><a href={category.href}>{category.label}</a></li>
-		))}
-	</ul>
-</nav>
+{categories.map((category) => (
+	<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
+		<h2 class="current-category-title" id={`${category.slug}-title`}>
+			<a href={category.href}>{category.label}</a>
+		</h2>
+		{category.description && <CurrentCategoryDescription text={category.description} />}
+		{category.articles.map((article) => <CurrentNews article={article} />)}
+	</section>
+))}

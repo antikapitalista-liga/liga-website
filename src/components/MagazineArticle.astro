@@ -1,5 +1,7 @@
 ---
 import type { Article } from "../data/aktualis";
+import ArticleByline from "./ArticleByline.astro";
+import ArticlePublisher from "./ArticlePublisher.astro";
 
 interface Props {
 	article: Article;
@@ -15,7 +17,7 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 	<h2 class="current-article-title" id={`${article.id}-title`}>
 		{linkTitle ? <a href={article.url}>{article.title}</a> : article.title}
 	</h2>
-	{article.author && <p class="current-article-meta">Közzétevő: {article.author}</p>}
+	<ArticleByline />
 	<div class="article-body">
 		<p><strong>{article.subtitle}</strong></p>
 		{article.paragraphs.map((paragraph) => (
@@ -34,6 +36,7 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 	<p class="current-article-meta article-date">
 		Közzététel dátuma: <time datetime={article.publishedAt}>{article.publishedLabel}</time>
 	</p>
+	<ArticlePublisher />
 	{linkTitle && (
 		<div class="article-divider" aria-hidden="true">
 			<svg class="divider-strand" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">

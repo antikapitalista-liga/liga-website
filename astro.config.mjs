@@ -50,5 +50,9 @@ export default defineConfig({
 	redirects: {
 		"/velemeny/": "/magazin/velemeny/",
 		"/irasok/": "/magazin/essze/",
+		"/liga-szotar/": "/magazin/liga-szotar/",
+		"/magazin/aktualis/": "/aktualis/",
+		"/magazin/aktualis/[category]/": "/aktualis/[category]",
+		"/magazin/aktualis/[category]/[article]/": "/aktualis/[category]/[article]",
 	},
 });

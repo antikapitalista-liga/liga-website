@@ -1,6 +1,5 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
-import MagazineParent from "../../components/MagazineParent.astro";
 ---
 
 <MainLayout
@@ -8,16 +7,18 @@ import MagazineParent from "../../components/MagazineParent.astro";
 	description="Rövid vélemények társadalmi, gazdasági és politikai kérdésekről."
 	theme="magazine"
 >
-	<header>
-		<MagazineParent />
-		<h1>Vélemény</h1>
+	<header class="current-category-header">
+		<h1 id="current-category-title">
+			Magazin: Vélemény
+			<a class="current-category-back" href="/magazin/" aria-label="Vissza a Magazin áttekintő oldalára">↑↑</a>
+		</h1>
 		<p>
 			Rövid állásfoglalások és gondolatok azokról a társadalmi, gazdasági és politikai
 			kérdésekről, amelyek közös életünket alakítják.
 		</p>
 	</header>
 	<main>
-		<section aria-labelledby="reszvetel">
+		<section aria-labelledby="current-category-title">
 			<h2 id="reszvetel">Közös gondolkodás</h2>
 			<p>
 				Javasolj kérdést, oszd meg a tapasztalatodat, vagy kapcsolódj be a párbeszédbe a
@@ -26,3 +27,9 @@ import MagazineParent from "../../components/MagazineParent.astro";
 		</section>
 	</main>
 </MainLayout>
+
+<style>
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>

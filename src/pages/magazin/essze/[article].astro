@@ -1,0 +1,38 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+import MagazineArticle from "../../../components/MagazineArticle.astro";
+import { partalapitasok } from "../../../data/esszek";
+
+export function getStaticPaths() {
+	return [partalapitasok].map((article) => ({
+		params: { article: article.slug },
+		props: { article },
+	}));
+}
+
+const { article } = Astro.props;
+---
+
+<MainLayout
+	title={`${article.title} | Kisesszé | Magazin | Antikapitalista Liga Magyarország`}
+	description={article.subtitle}
+	theme="magazine"
+>
+	<header class="current-category-header">
+		<h1 id="current-category-title">
+			Kisesszé
+			<a class="current-category-back" href="/magazin/essze/" aria-label="Vissza a Kisesszé oldalára">↑↑</a>
+		</h1>
+	</header>
+	<main>
+		<section aria-labelledby="current-category-title">
+			<MagazineArticle article={article} />
+		</section>
+	</main>
+</MainLayout>
+
+<style>
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>

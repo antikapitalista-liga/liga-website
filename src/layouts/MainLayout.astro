@@ -10,7 +10,7 @@ interface Props {
 	description: string;
 	lang?: "hu" | "en";
 	frame?: "brand-rail" | "wide";
-	theme?: "default" | "magazine";
+	theme?: "default" | "magazine" | "current";
 	brandLabel?: string;
 	brandTone?: "default" | "bronze" | "teal" | "rust" | "navy";
 }
@@ -40,11 +40,11 @@ const { title, description, lang = "hu", frame = "brand-rail", theme = "default"
 		<title>{title}</title>
 	</head>
 	<body>
-		<Navigation wide={frame === "wide"} magazine={theme === "magazine"} lang={lang} />
+		<Navigation wide={frame === "wide"} theme={theme === "default" ? undefined : theme} lang={lang} />
 		{frame === "wide" ? (
 			<slot />
 		) : (
-			<div class:list={["site-layout", brandTone !== "default" && `site-layout-${brandTone}`, theme === "magazine" && "site-layout-magazine"]}>
+			<div class:list={["site-layout", brandTone !== "default" && `site-layout-${brandTone}`, theme === "magazine" && "site-layout-magazine", theme === "current" && "site-layout-current"]}>
 				<aside class="site-brand" aria-label={brandLabel ?? (lang === "en" ? "Organization" : "Szervezet")}>
 					<slot name="brand"><SiteIdentity lang={lang} /></slot>
 				</aside>
@@ -54,7 +54,7 @@ const { title, description, lang = "hu", frame = "brand-rail", theme = "default"
 				</div>
 				<aside class="site-context" aria-label={lang === "en" ? "Current affairs" : "Aktuális"}>
 					<section class="site-context-panel">
-						<h2><a href="/magazin/aktualis/">{lang === "en" ? "Current" : "Aktuális"}</a></h2>
+						<h2><a href="/aktualis/">{lang === "en" ? "Current" : "Aktuális"}</a></h2>
 						<CurrentLinks lang={lang} />
 					</section>
 				</aside>

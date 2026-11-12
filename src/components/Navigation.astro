@@ -3,16 +3,18 @@ import SiteSearch from "./SiteSearch.astro";
 
 interface Props {
 	wide?: boolean;
-	magazine?: boolean;
+	theme?: "magazine" | "current";
 	lang?: "hu" | "en";
 }
 
-const { wide = false, magazine = false, lang = "hu" } = Astro.props;
+const { wide = false, theme, lang = "hu" } = Astro.props;
 const currentPath = Astro.url.pathname;
 const isMagazinePath = currentPath.startsWith("/magazin/");
+const isCurrentPath = currentPath.startsWith("/aktualis/");
 const items = [
 	{ href: "/", label: "Főoldal" },
 	{ href: "/kuldetes/", label: "Küldetés" },
+	{ href: "/aktualis/", label: "Aktuális" },
 	{ href: "/magazin/", label: "Magazin" },
 	{ href: "/kozosseg/", label: "Közösség" },
 	{ href: "/kapcsolat/", label: "Kapcsolat" },
@@ -21,7 +23,12 @@ const items = [
 ---
 <nav
 	id="top-of-page"
-	class:list={["site-navigation", wide && "site-navigation-wide", magazine && "site-navigation-magazine"]}
+	class:list={[
+		"site-navigation",
+		wide && "site-navigation-wide",
+		theme === "magazine" && "site-navigation-magazine",
+		theme === "current" && "site-navigation-current",
+	]}
 	aria-label="Fő navigáció"
 >
 	<ul>
@@ -30,7 +37,9 @@ const items = [
 				<a
 					href={item.href}
 					aria-current={
-						currentPath === item.href || (item.href === "/magazin/" && isMagazinePath)
+						currentPath === item.href ||
+						(item.href === "/magazin/" && isMagazinePath) ||
+						(item.href === "/aktualis/" && isCurrentPath)
 							? "page"
 							: undefined
 					}

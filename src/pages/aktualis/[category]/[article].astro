@@ -1,10 +1,9 @@
 ---
-import MainLayout from "../../../../layouts/MainLayout.astro";
-import MagazineParent from "../../../../components/MagazineParent.astro";
-import CurrentAnnouncement from "../../../../components/CurrentAnnouncement.astro";
-import CurrentCategoryDescription from "../../../../components/CurrentCategoryDescription.astro";
-import MagazineArticle from "../../../../components/MagazineArticle.astro";
-import { aktualisCategories, articlesByCategory } from "../../../../data/aktualis";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import CurrentAnnouncement from "../../../components/CurrentAnnouncement.astro";
+import CurrentCategoryDescription from "../../../components/CurrentCategoryDescription.astro";
+import MagazineArticle from "../../../components/MagazineArticle.astro";
+import { aktualisCategories, articlesByCategory } from "../../../data/aktualis";
 
 export function getStaticPaths() {
 	return aktualisCategories.flatMap((category) => {
@@ -20,15 +19,14 @@ const { category, article } = Astro.props;
 ---
 
 <MainLayout
-	title={`${article.title} | ${category.label} | Aktuális | Magazin | Antikapitalista Liga Magyarország`}
+	title={`${article.title} | ${category.label} | Aktuális | Antikapitalista Liga Magyarország`}
 	description={article.subtitle}
-	theme="magazine"
+	theme="current"
 >
 	<header class="current-category-header">
-		<MagazineParent />
 		<h1 id="current-category-title">
 			Aktuális: {category.label}
-			<a class="current-category-back" href={`/magazin/aktualis/${category.slug}/`} aria-label={`Vissza a ${category.label} oldalára`}>↑↑</a>
+			<a class="current-category-back" href={`/aktualis/${category.slug}/`} aria-label={`Vissza a ${category.label} oldalára`}>↑↑</a>
 		</h1>
 		{category.description && <CurrentCategoryDescription text={category.description} />}
 		{category.slug === "hirdetmenyek" && <CurrentAnnouncement />}

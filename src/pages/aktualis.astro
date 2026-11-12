@@ -1,26 +1,24 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
-import MagazineParent from "../../components/MagazineParent.astro";
-import CurrentAnnouncement from "../../components/CurrentAnnouncement.astro";
-import CurrentCategoryDescription from "../../components/CurrentCategoryDescription.astro";
-import CurrentNews from "../../components/CurrentNews.astro";
-import { aktualisCategories, articlesByCategory, getRecentArticles } from "../../data/aktualis";
+import MainLayout from "../layouts/MainLayout.astro";
+import CurrentAnnouncement from "../components/CurrentAnnouncement.astro";
+import CurrentCategoryDescription from "../components/CurrentCategoryDescription.astro";
+import CurrentNews from "../components/CurrentNews.astro";
+import { aktualisCategories, articlesByCategory, getRecentArticles } from "../data/aktualis";
 ---
 
 <MainLayout
-	title="Aktuális | Magazin | Antikapitalista Liga Magyarország"
-	description="Párthírek, hirdetmények, események és alternatív hírek az Antikapitalista Liga Magyarország magazinjában."
-	theme="magazine"
+	title="Aktuális | Antikapitalista Liga Magyarország"
+	description="Párthírek, hirdetmények, események és alternatív hírek az Antikapitalista Liga Magyarország oldalán."
+	theme="current"
 >
 	<header class="current-overview-header">
-		<MagazineParent />
 		<h1>Aktuális</h1>
 	</header>
 	<main class="current-overview">
 		{aktualisCategories.map((category) => (
 			<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
 				<h2 class="current-category-title" id={`${category.slug}-title`}>
-					<a href={`/magazin/aktualis/${category.slug}/`}>{category.label}</a>
+					<a href={`/aktualis/${category.slug}/`}>{category.label}</a>
 				</h2>
 				{category.description && <CurrentCategoryDescription text={category.description} />}
 				{category.slug === "hirdetmenyek" && <CurrentAnnouncement />}

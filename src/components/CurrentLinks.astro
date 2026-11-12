@@ -1,7 +1,5 @@
 ---
 import { aktualisCategories, articlesByCategory, getRecentArticles } from "../data/aktualis";
-import CurrentAnnouncement from "./CurrentAnnouncement.astro";
-import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
 import CurrentNews from "./CurrentNews.astro";
 
 interface Props {
@@ -14,15 +12,11 @@ const { lang = "hu" } = Astro.props;
 <ul class="current-links">
 	{aktualisCategories.map((category) => (
 		<li>
-			<a href={`/magazin/aktualis/${category.slug}/`}>
+			<a href={`/aktualis/${category.slug}/`}>
 				{lang === "en" ? category.englishLabel : category.label}
 			</a>
-			{(lang === "en" ? category.englishDescription : category.description) && (
-				<CurrentCategoryDescription text={lang === "en" ? category.englishDescription : category.description} />
-			)}
-			{category.slug === "hirdetmenyek" && <CurrentAnnouncement lang={lang} />}
-			{getRecentArticles(articlesByCategory[category.slug] ?? []).map((article) => (
-				<CurrentNews article={article} />
+			{getRecentArticles(articlesByCategory[category.slug] ?? [], 3).map((article) => (
+				<CurrentNews article={article} compact />
 			))}
 		</li>
 	))}

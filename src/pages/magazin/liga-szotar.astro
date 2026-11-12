@@ -1,0 +1,27 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+---
+
+<MainLayout
+	title="Liga Szótár | Magazin | Antikapitalista Liga Magyarország"
+	description="Az Antikapitalista Liga Magyarország szótára."
+	theme="magazine"
+>
+	<header class="current-category-header">
+		<h1 id="current-category-title">
+			Magazin: Liga Szótár
+			<a class="current-category-back" href="/magazin/" aria-label="Vissza a Magazin áttekintő oldalára">↑↑</a>
+		</h1>
+	</header>
+	<main>
+		<section aria-labelledby="current-category-title">
+			<p>A Liga Szótár készülőben van.</p>
+		</section>
+	</main>
+</MainLayout>
+
+<style>
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>
