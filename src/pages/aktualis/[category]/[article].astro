@@ -21,6 +21,7 @@ const { category, article } = Astro.props;
 <MainLayout
 	title={`${article.title} | ${category.label} | Aktuális | Antikapitalista Liga Magyarország`}
 	description={article.subtitle}
+	socialImage={article.image}
 	theme="current"
 >
 	<header class="current-category-header">
