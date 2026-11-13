@@ -611,6 +611,12 @@ article > p:first-child {
 	text-transform: uppercase;
 }
 
+.site-content > header h1.main-page-title {
+	font-size: clamp(3.25rem, calc(3.25rem + (100vw - 1100px) * 0.05), 3.75rem);
+	letter-spacing: 0.06em;
+	line-height: 1.1;
+}
+
 .site-content :is(h1, h2, h3, h4, h5, h6) {
 	color: var(--color-rail);
 }
@@ -791,7 +797,7 @@ article > p:first-child {
 }
 
 @media (min-width: 1101px) and (max-width: 1500px) {
-	body:has(> nav:not(.site-navigation-wide)) {
+	body:has(> nav) {
 		--site-nav-height: 146px;
 	}
 
@@ -914,7 +920,8 @@ article > p:first-child {
 	.site-content > header .constitution-title,
 	.site-content > header .guidelines-title,
 	.site-content > header .magazine-title,
-	.site-content > header h1.magazine-title {
+	.site-content > header h1.magazine-title,
+	.site-content > header h1.main-page-title {
 		font-size: 2rem;
 	}
 
