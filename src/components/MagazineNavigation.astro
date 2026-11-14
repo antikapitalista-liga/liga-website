@@ -2,6 +2,7 @@
 import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
 import CurrentNews from "./CurrentNews.astro";
 import { esszek } from "../data/esszek";
+import { tarcak } from "../data/tarcak";
 
 const categories = [
 	{
@@ -18,6 +19,12 @@ const categories = [
 		articles: esszek,
 	},
 	{
+		slug: "tarca",
+		href: "/magazin/tarca/",
+		label: "Tárca",
+		articles: tarcak,
+	},
+	{
 		slug: "publicisztika",
 		href: "/magazin/publicisztika/",
 		label: "Publicisztika",
@@ -25,9 +32,10 @@ const categories = [
 		articles: [],
 	},
 	{
+		// A korábbi URL és horgony a meglévő hivatkozások miatt változatlan marad.
 		slug: "irodalom",
 		href: "/magazin/irodalom/",
-		label: "Irodalom",
+		label: "Rövid próza",
 		description: "Irodalmi művek és olvasmányok az emberi méltóság, a közösség és a társadalom kérdéseiről.",
 		articles: [],
 	},

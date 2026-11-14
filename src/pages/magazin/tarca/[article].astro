@@ -1,0 +1,40 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+import MagazineArticle from "../../../components/MagazineArticle.astro";
+import { tarcak } from "../../../data/tarcak";
+
+// A Tárca cikkei a rovat adataiból kapnak saját statikus oldalt.
+export function getStaticPaths() {
+	return tarcak.map((article) => ({
+		params: { article: article.slug },
+		props: { article },
+	}));
+}
+
+const { article } = Astro.props;
+---
+
+<MainLayout
+	title={`${article.title} | Tárca | Magazin | Antikapitalista Liga Magyarország`}
+	description={article.subtitle}
+	socialImage={article.image}
+	theme="magazine"
+>
+	<header class="current-category-header">
+		<h1 id="current-category-title">
+			Tárca
+			<a class="current-category-back" href="/magazin/tarca/" aria-label="Vissza a Tárca oldalára">↑↑</a>
+		</h1>
+	</header>
+	<main>
+		<section aria-labelledby="current-category-title">
+			<MagazineArticle article={article} />
+		</section>
+	</main>
+</MainLayout>
+
+<style>
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>
