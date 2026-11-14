@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation.astro";
 import SiteIdentity from "../components/SiteIdentity.astro";
 import CurrentLinks from "../components/CurrentLinks.astro";
 import SiteMotto from "../components/SiteMotto.astro";
+import SurveyPrompt from "../components/SurveyPrompt.astro";
 
 interface Props {
 	title: string;
@@ -76,5 +77,6 @@ const socialImageUrl = new URL(socialImage?.src ?? "/social-preview.png", Astro.
 				</aside>
 			</div>
 		)}
+		<SurveyPrompt />
 	</body>
 </html>

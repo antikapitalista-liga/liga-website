@@ -25,3 +25,11 @@ az `npm run build` parancsot, ha a helyi keresőt is frissíteni szeretnéd.
 Az index a középső tartalmi oszlopot és a cikkek képleírását tartalmazza;
 a navigáció és az oldalsáv ismétlődő elemei nem kerülnek bele. A magyar és az
 angol oldalak közös, magyar nyelvi beállítású indexben kereshetők.
+
+## Kérdőíves felugró ablak
+
+A kérdőív felhívása az ötödik belső oldalváltás céloldalán jelenik meg,
+böngészőlaponként egyszer. Az állapotot a böngésző `sessionStorage` tárolja;
+az oldalon belüli ugrások, külső linkek és letöltések nem számítanak bele.
+Az ablak és a kérdőív linkje a `src/components/SurveyPrompt.astro` fájlban
+található. Külön kattintási értesítést nem küld.

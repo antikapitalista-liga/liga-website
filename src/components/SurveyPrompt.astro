@@ -1,0 +1,213 @@
+<dialog class="survey-prompt" aria-labelledby="survey-prompt-message" data-pagefind-ignore>
+	<div class="survey-prompt-inner">
+		<button type="button" class="survey-close" aria-label="Bezár">
+			<svg viewBox="0 0 20 20" aria-hidden="true">
+				<path d="M4 4 L16 16 M16 4 L4 16" />
+			</svg>
+		</button>
+		<p id="survey-prompt-message">Ha tetszik az oldal, kérjük töltsd ki rövid kérdőívünket!</p>
+		<div class="survey-actions">
+			<a href="https://forms.cloud.microsoft/r/nyRgM90dAC?origin=lprLink" title="https://forms.cloud.microsoft/r/nyRgM90dAC?origin=lprLink">Ugrás a kérdőívhez!</a>
+		</div>
+		<span class="survey-symbol" aria-hidden="true"></span>
+	</div>
+</dialog>
+
+<script>
+	const dialog = document.querySelector<HTMLDialogElement>(".survey-prompt");
+	const closeButton = dialog?.querySelector<HTMLButtonElement>(".survey-close");
+	const countKey = "survey-internal-navigation-count";
+	const pendingKey = "survey-pending-navigation";
+	const shownKey = "survey-prompt-shown";
+
+	if (!dialog || !closeButton) {
+		throw new Error("A kérdőív felugró ablaka hiányos.");
+	}
+
+	closeButton.addEventListener("click", () => dialog.close());
+	dialog.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") {
+			event.preventDefault();
+			dialog.close();
+		}
+	});
+
+	// Csak egy ténylegesen betöltött céloldal számít bele az öt oldalváltásba.
+	function processArrival() {
+		try {
+			const pending = sessionStorage.getItem(pendingKey);
+			if (!pending) return;
+			sessionStorage.removeItem(pendingKey);
+
+			const destination = new URL(pending);
+			const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+			if (destination.origin !== location.origin ||
+				normalizePath(destination.pathname) !== normalizePath(location.pathname) ||
+				destination.search !== location.search) return;
+
+			const count = Number(sessionStorage.getItem(countKey) || "0") + 1;
+			sessionStorage.setItem(countKey, String(count));
+			if (count >= 5 && sessionStorage.getItem(shownKey) !== "1") {
+				dialog.showModal();
+				sessionStorage.setItem(shownKey, "1");
+			}
+		} catch (error) {
+			console.warn("A kérdőív megjelenítését nem sikerült kezelni.", error);
+		}
+	}
+
+	window.addEventListener("pageshow", (event) => {
+		if (event.persisted && dialog.open) dialog.close();
+		processArrival();
+	});
+
+	document.addEventListener("click", (event) => {
+		if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+		const target = event.target;
+		if (!(target instanceof Element)) return;
+		const link = target.closest<HTMLAnchorElement>("a[href]");
+		if (!link || link.hasAttribute("download") || (link.target && link.target.toLowerCase() !== "_self")) return;
+		const destination = new URL(link.href, location.href);
+		if (destination.origin !== location.origin || !/^https?:$/.test(destination.protocol)) return;
+		if (destination.pathname === location.pathname && destination.search === location.search) return;
+		if (/\.[^/]+$/.test(destination.pathname) && !/\.html?$/i.test(destination.pathname)) return;
+
+		try {
+			if (sessionStorage.getItem(shownKey) !== "1") {
+				sessionStorage.setItem(pendingKey, destination.href);
+			}
+		} catch (error) {
+			console.warn("A belső oldalváltást nem sikerült megjegyezni.", error);
+		}
+	});
+</script>
+
+<style>
+	.survey-prompt {
+		width: min(94vw, 600px);
+		max-width: none;
+		max-height: 92dvh;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: #e6eee5;
+		font-family: "Mouse Memoirs", "Segoe UI", sans-serif;
+		font-variant: small-caps;
+		overflow: auto;
+	}
+
+	.survey-prompt::backdrop {
+		background: rgb(0 0 0 / 55%);
+	}
+
+	.survey-prompt-inner {
+		position: relative;
+		display: flex;
+		min-height: 300px;
+		flex-direction: column;
+		justify-content: center;
+		gap: 48px;
+		padding: 92px 40px 80px;
+		background: #263d30;
+		box-shadow: 0 10px 32px rgb(0 0 0 / 35%);
+		text-align: center;
+	}
+
+	.survey-prompt-inner::before {
+		position: absolute;
+		inset: 8px 8px 24px;
+		border: 3px solid #eef3ef;
+		border-bottom: 0;
+		background: linear-gradient(to right, #eef3ef calc(50% - 32px), transparent calc(50% - 32px), transparent calc(50% + 32px), #eef3ef calc(50% + 32px)) bottom / 100% 3px no-repeat;
+		content: "";
+		pointer-events: none;
+	}
+
+	.survey-close {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: inherit;
+		cursor: pointer;
+	}
+
+	.survey-close svg {
+		width: 20px;
+		height: 20px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2.5;
+		stroke-linecap: round;
+	}
+
+	.survey-prompt p {
+		margin: 0;
+		font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
+		font-size: clamp(1rem, 5vw, 2rem);
+		font-weight: 400;
+		letter-spacing: 0.06em;
+		line-height: 1.1;
+	}
+
+	.survey-actions {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.survey-actions a {
+		display: inline-block;
+		padding: 6px 12px;
+		border: 1px solid #c7a364;
+		border-radius: 4px;
+		background: #405748;
+		color: inherit;
+		font: inherit;
+		font-size: 1.3rem;
+		line-height: 1.2;
+		text-decoration: none;
+	}
+
+	.survey-actions a:hover {
+		background: #526d5b;
+	}
+
+	.survey-actions a:focus-visible {
+		outline: 3px solid #e6eee5;
+		outline-offset: 3px;
+	}
+
+	.survey-close:focus-visible {
+		outline: none;
+		color: #f3cb70;
+		filter: drop-shadow(0 0 3px #f3cb70);
+	}
+
+	.survey-symbol {
+		position: absolute;
+		bottom: 12px;
+		left: 50%;
+		width: 29px;
+		height: 48px;
+		transform: translateX(-50%);
+		background: #d7b86d;
+		mask: url("/antikapitalista-jelkep.png") center / contain no-repeat;
+	}
+
+	@media (max-width: 480px) {
+		.survey-prompt-inner {
+			gap: 36px;
+			padding: 92px 28px 80px;
+		}
+
+		.survey-actions a {
+			font-size: 1.1rem;
+		}
+	}
+</style>
