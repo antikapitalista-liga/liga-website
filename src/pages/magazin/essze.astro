@@ -1,12 +1,12 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import MagazineArticle from "../../components/MagazineArticle.astro";
-import { partalapitasok } from "../../data/esszek";
+import { esszek } from "../../data/esszek";
 ---
 
 <MainLayout
 	title="Kisesszé | Magazin | Antikapitalista Liga Magyarország"
-	description={partalapitasok.subtitle}
+	description={esszek[0].subtitle}
 	theme="magazine"
 >
 	<header class="current-category-header">
@@ -17,7 +17,7 @@ import { partalapitasok } from "../../data/esszek";
 	</header>
 	<main>
 		<section aria-labelledby="current-category-title">
-			<MagazineArticle article={partalapitasok} linkTitle />
+			{esszek.map((article) => <MagazineArticle article={article} linkTitle />)}
 		</section>
 	</main>
 </MainLayout>

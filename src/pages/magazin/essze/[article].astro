@@ -1,10 +1,10 @@
 ---
 import MainLayout from "../../../layouts/MainLayout.astro";
 import MagazineArticle from "../../../components/MagazineArticle.astro";
-import { partalapitasok } from "../../../data/esszek";
+import { esszek } from "../../../data/esszek";
 
 export function getStaticPaths() {
-	return [partalapitasok].map((article) => ({
+	return esszek.map((article) => ({
 		params: { article: article.slug },
 		props: { article },
 	}));
