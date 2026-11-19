@@ -11,6 +11,8 @@ interface Props {
 const { article, linkTitle = false } = Astro.props;
 const shareUrl = new URL(article.url, Astro.site).href;
 const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+// Share the article's own highlight with the common hashtags.
+const shareText = `${article.subtitle}\n\n#antikapitalista #antikapitalistaliga #antikapitalistaligamagyarorszag #anticapitalistleague #anticapitalistleagueofhungary`;
 // Keep existing articles' images at the end unless a mid-article position is specified.
 const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.length;
 ---
@@ -62,11 +64,13 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 		</div>
 	)}
 	{!linkTitle && (
-		<div class="article-share" data-pagefind-ignore data-article-share data-share-url={shareUrl} data-share-title={article.title} data-share-text={article.subtitle}>
+		<div class="article-share" data-pagefind-ignore data-article-share data-share-url={shareUrl} data-share-title={article.title} data-share-text={shareText}>
 			<button class="article-share-button" type="button" data-share-native hidden>Megosztás</button>
 			<button class="article-share-button" type="button" data-share-copy>Hivatkozás másolása</button>
+			<button class="article-share-button" type="button" data-share-copy-text>Megosztási szöveg másolása</button>
 			<a class="article-share-button" href={facebookShareUrl} target="_blank" rel="noopener noreferrer">Facebook</a>
 			<input class="article-share-url" type="text" readonly aria-label="Másolható hivatkozás" hidden />
+			<textarea class="article-share-text" readonly aria-label="Másolható megosztási szöveg" rows="5" hidden></textarea>
 			<span class="article-share-status" role="status" aria-live="polite" hidden></span>
 		</div>
 	)}
@@ -78,12 +82,15 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 	for (const articleShare of articleShares) {
 		const shareButton = articleShare.querySelector<HTMLButtonElement>("[data-share-native]");
 		const copyButton = articleShare.querySelector<HTMLButtonElement>("[data-share-copy]");
+		const copyTextButton = articleShare.querySelector<HTMLButtonElement>("[data-share-copy-text]");
 		const shareUrl = articleShare.dataset.shareUrl;
+		const shareText = articleShare.dataset.shareText;
 		const status = articleShare.querySelector<HTMLElement>(".article-share-status");
 		const urlInput = articleShare.querySelector<HTMLInputElement>(".article-share-url");
+		const textInput = articleShare.querySelector<HTMLTextAreaElement>(".article-share-text");
 		let statusTimeout: ReturnType<typeof setTimeout>;
 
-		if (!shareUrl || !status || !urlInput || !copyButton) {
+		if (!shareUrl || !shareText || !status || !urlInput || !textInput || !copyButton || !copyTextButton) {
 			throw new Error("A cikk megosztási felülete hiányos.");
 		}
 
@@ -103,7 +110,7 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 				try {
 					await navigator.share({
 						title: articleShare.dataset.shareTitle,
-						text: articleShare.dataset.shareText,
+						text: shareText,
 						url: shareUrl,
 					});
 				} catch (error) {
@@ -116,6 +123,7 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 		}
 
 		copyButton.addEventListener("click", async () => {
+			textInput.hidden = true;
 			try {
 				if (!navigator.clipboard) {
 					throw new Error("A vágólap API nem érhető el.");
@@ -128,6 +136,24 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 				urlInput.hidden = false;
 				urlInput.select();
 				showStatus("A hivatkozás automatikus másolása nem sikerült. Jelöld ki és másold ki a mező tartalmát.");
+			}
+		});
+
+		// If clipboard access fails, expose the full multiline text for manual copying.
+		copyTextButton.addEventListener("click", async () => {
+			urlInput.hidden = true;
+			try {
+				if (!navigator.clipboard) {
+					throw new Error("A vágólap API nem érhető el.");
+				}
+				await navigator.clipboard.writeText(shareText);
+				textInput.hidden = true;
+				showStatus("A megosztási szöveg a vágólapra került.");
+			} catch {
+				textInput.value = shareText;
+				textInput.hidden = false;
+				textInput.select();
+				showStatus("A megosztási szöveg automatikus másolása nem sikerült. Jelöld ki és másold ki a mező tartalmát.");
 			}
 		});
 	}
@@ -257,7 +283,8 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 		text-underline-offset: 3px;
 	}
 
-	.article-share-url {
+	.article-share-url,
+	.article-share-text {
 		flex: 1 1 100%;
 		max-width: 100%;
 		padding: 6px;
