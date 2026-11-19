@@ -11,6 +11,8 @@ interface Props {
 const { article, linkTitle = false } = Astro.props;
 const shareUrl = new URL(article.url, Astro.site).href;
 const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+// Keep existing articles' images at the end unless a mid-article position is specified.
+const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.length;
 ---
 
 <article class="magazine-article" aria-labelledby={`${article.id}-title`}>
@@ -20,7 +22,7 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 	<ArticleByline />
 	<div class="article-body">
 		<p><strong>{article.subtitle}</strong></p>
-		{article.paragraphs.map((paragraph) => (
+		{article.paragraphs.slice(0, imageAfterParagraph).map((paragraph) => (
 			typeof paragraph === "string" ? (
 				<p>{paragraph}</p>
 			) : (
@@ -28,10 +30,17 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 			)
 		))}
 		{article.image && (
-			<a href={article.image.src} aria-label="A kép megnyitása teljes méretben">
+			<a class="article-image-frame" href={article.image.src} aria-label="A kép megnyitása teljes méretben">
 				<img class="article-image" src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} data-pagefind-index-attrs="alt" />
 			</a>
 		)}
+		{article.paragraphs.slice(imageAfterParagraph).map((paragraph) => (
+			typeof paragraph === "string" ? (
+				<p>{paragraph}</p>
+			) : (
+				<p class="article-highlight"><strong>{paragraph.text}</strong></p>
+			)
+		))}
 	</div>
 	<p class="current-article-meta article-date">
 		Közzététel dátuma: <time datetime={article.publishedAt}>{article.publishedLabel}</time>
@@ -171,6 +180,18 @@ const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeU
 
 	.article-date {
 		margin-top: 8px;
+	}
+
+	/* The paper-colored padding forms a broad inner frame inside the thin dark border. */
+	.article-image-frame {
+		display: block;
+		width: fit-content;
+		max-width: 100%;
+		box-sizing: border-box;
+		margin: 28px auto;
+		padding: 8px;
+		border: 1px solid var(--color-magazine-deep);
+		background: var(--color-magazine-paper);
 	}
 
 	.article-image {

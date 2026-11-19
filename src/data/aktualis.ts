@@ -7,6 +7,8 @@ export interface Article {
 	publishedLabel: string;
 	url: string;
 	paragraphs: (string | { text: string; highlighted: true })[];
+	// The image appears after this many paragraphs; when omitted, it stays at the end.
+	imageAfterParagraph?: number;
 	image?: {
 		src: string;
 		alt: string;

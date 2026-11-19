@@ -1,5 +1,32 @@
 import type { Article } from "./aktualis";
 
+export const ketpartRendszer: Article = {
+	id: "ketpartrendszer",
+	slug: "ketpartrendszer",
+	title: "Kétpártrendszer",
+	subtitle:
+		"A kétpártrendszer nem csupán politikai berendezkedés, hanem egy sajátos gondolkodásmód is. A komplex kérdéseket két tábor versenyére egyszerűsíti, miközben az önálló eszmeiségek és koherens megközelítések egyre nehezebben találnak helyet a közéletben. Éppen ezért érdemes feltenni a kérdést: valóban hibáról beszélünk, vagy egy mélyebben gyökerező szükségszerűségről?",
+	publishedAt: "2026-11-19",
+	publishedLabel: "2026. november 19.",
+	url: "/magazin/essze/ketpartrendszer/",
+	imageAfterParagraph: 4,
+	image: {
+		src: "/ketpart-rendszer-partok-faja.png",
+		alt: "Pártok fája: színes politikai irányzatok között növekvő fa, középen elágazó gyökerekkel.",
+		width: 1316,
+		height: 768,
+	},
+	paragraphs: [
+		"Előfordulhat, hogy van, aki még további okokat hoz, illetve előfordulhat az is, hogy valaki úgy gondolja, hogy a kétpártrendszer csak látszólagos és átmeneti állapot egy demokráciában, nem valamiféle végső berendezkedés. Az első esetben az mondható, hogy lehet további megfontolásokat felhozni a jelenség okaként, de a magunk részéről nem hinnénk, hogy azok csak megközelítőleg is olyan súllyal eshetnek latba, mint ez a kettő. A kétpártrendszer tagadásának problematikus voltára pedig nem akarok kitérni, hiszen a politikai környezet még akkor is a kétpártrendszerre redukálódott, ha egyébként több működő párt van a porondon.",
+		"A kétpártrendszer elviekben sokkal hatékonyabb működtetési formát képes fenntartani egy ország tekintetében, mintha valódi sok, önálló pártra hárulna ugyanezen munka elvégzése. Ez kiegészíthető azzal, hogy az egypártrendszer még a kétpártrendszernél is messze hatékonyabb, csak a demokráciához, vagy épp a demokrácia látszatának fenntartásához adottnak kell lenni a választás lehetőségének, minden esetben. Tartsuk meg a hatalomért való versengés és az általános hatékonyság elemeit, és nézzük meg, hogy a többpártrendszerhez viszonyítva mi is ez az egész.",
+		"Számunkra egy párt alapjának eszmei alapnak kell lennie, ahol elengedhetetlen egy koherens nézőpont és egy ahhoz kötődő véleményrendszer megléte. Ezzel meglehetősen tágan fogalmaztuk meg azt, hogy mit értünk párt alatt, ám nyilván egy politikai párt politikai nézőpontot vesz fel és politikán alapuló véleményrendszert dolgoz ki; ha ezt a szűkítést nem tesszük meg, akkor gyakorlatilag a tudomány és művészetek különböző területein ismert iskola fogalmát adtuk meg. Így egyik oldalról beszűkítettük a párt, míg a másik oldalról kitágítottuk a politikum fogalmát – mindkettőt szükségesnek tartjuk ahhoz, hogy – egyebek mellett – olyan munkát lehessen e keretek között végezni, amivel a közélet szellemi színvonalának emeléséhez hozzájárulhatunk.",
+		"A kétpártrendszer önigazolásának alaphazugsága, hogy minden egyes kérdéskört – hamis egyszerűsítések, csúsztatások és különböző hatásvadász mutatványok sorával – eldöntendő kérdések sorává redukál. A koherens és komplex megközelítéseket így veri szét igennel és nemmel megválaszolandó kérdésekre, ahol minden egyes igennél jobbról, minden egyes nemnél balról ad egy pofont, és utána a delikvens minden ellenkezése ellenére – méltányosságból mondjuk ezt, mert még ez a leegyszerűsített értékítélet is csak a legritkábban vált ki ellenkezést – besorolja arra a képzelt oldalra, amelyik fele az arcának pirosabb lett. Két apróság… Az egyik, hogy könnyen lehet: az egymással versengő álláspontok mögött valójában jóval kisebb a különbség, mint amennyit a politikai törésvonalak sugallnak. Ennek kifejtése azonban egy másik történet volna. A másik, hogy a vázolt metódus tulajdonképpen a minőség mennyiséggé redukálásának a módja.",
+		"A kétpártrendszer pártjaiban pont ezért vannak frakciók vagy platformok, csak éppen ha a frakciók tagjainak a véleménye kritikusabbá válik, mint ameddig egyébként az adott párt tűréshatára még engedné, teherré és nemkívánatosakká válnak. Az ilyen frakciók általában szétszélednek a pártban, és csak ritkábban szakadnak ki. Ezzel együtt vagy az efféle frakciószerű pártok miatt mondjuk, hogy manapság ahol több párt működik, ott is összességében kétpártrendszer van, vagy mert a markánsan különböző további pártok reménytelenül kicsik és esélytelenek minden tekintetben. Ez a történet azon részéhez tartozik, amelyik alapján a kétpártrendszer hatékonyságáról írtunk: a belső frakciók, platformok tagjai inkább visszafogják magukat, hogy a nagy egész versenyképesebb maradhasson velük, és adott esetben felemelkedhessenek saját platform elképzeléseiket hatékonyabban értékesítve.",
+		"A hatékonyság pedig együtt jár a rendszer olcsóbb finanszírozhatóságával. A kétpártrendszer egészének megértéséhez azonban ez a szempont fontosabb lehet minden korábbinál. Két párt fenntarthatóbb, mert könnyebben kerülhet bármelyik hatalomra, és így jobban megéri valamelyikbe többet fektetni – bárhogy is értsük a befektetést, tehát hamarabb a törvényhozás előszobájában köthet ki a befektető megbízottja. Kétpártrendszer esetén garantáltan könnyebben megy bármelyik gazdasági szereplőnek odáig jutni, hogy a szponzorációért cserébe beleszólhasson a törvényalkotásba, vagy épp neki tetsző törvényeket rendeljen meg.",
+		"Két párt: két szervezet, két irány – könnyebben, olcsóbban párhuzamos pályára állíthatók a két fő szponzor, a kapitalista világ forgatókönyvírói számára, ahol gyakran az figyelhető meg, hogy az egyik pólus mögött inkább a vállalati tőke, a másik mögött inkább a pénzügyi érdekek sorakoznak fel. Akármilyen komolyan is vesszük a demokráciát, a szponzoroknak nincs szükségük olyan további szereplőkre – sem harmadikra, sem sokadikra –, akik tőlük független politikameghatározó tényezővé nőhetnek. Egyébként a kétpártrendszer két tömbjének a leghangosabb szószólói sem kívánják a látszat megléténél tovább bonyolítani a politikai életet. Jó volna minél több aktív, önálló eszmeiséggel rendelkező párt, és szükség volna arra, hogy ezek zöme a parlamentbe kerülve úgy kormányozza az országot, hogy átlátható legyen minden egyes törvény megszületésének menete, mégha ez idő- és költségigényesebb is. Ezért bárki, aki a jelenlegi rendszer meghaladásán, valódi fejlesztésén, ember- és életközpontúvá tételén kíván dolgozni, annak szükséges félretenni a civilek büszkeségeként dédelgetett politikaundort, a politikai szféra lenézését, és beállni valahogy abba a munkába, ami kivezeti az országokat a kétpártrendszer színházából.",
+	],
+};
+
 export const partalapitasok: Article = {
 	id: "partalapitasok",
 	slug: "partalapitasok",
@@ -42,4 +69,4 @@ export const semmidSeLesz: Article = {
 	],
 };
 
-export const esszek: Article[] = [semmidSeLesz, partalapitasok];
+export const esszek: Article[] = [ketpartRendszer, semmidSeLesz, partalapitasok];
