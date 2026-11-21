@@ -17,4 +17,29 @@ import MainLayout from "../layouts/MainLayout.astro";
 				a közösség és programja a közös munka során formálódik.
 			</p>
 	</header>
+	<!-- Kiemelt Telegram-blokk a Közösség oldal bemutatkozó szövege alatt. -->
+	<aside class="community-telegram" aria-label="Telegram közösség">
+		<p>
+			Az Antikapitalista Liga csoportja elérhető a Telegramon:{" "}
+			<a href="https://t.me/+g7MYeKgt_2syODlk" target="_blank" rel="noopener noreferrer">https://t.me/+g7MYeKgt_2syODlk</a>
+		</p>
+	</aside>
 </MainLayout>
+
+<style>
+	/* A Telegram-csoport felhívása kiemelt, de az oldal témájához igazodó blokkot kap. */
+	.community-telegram {
+		margin-top: 20px;
+		padding: 18px 22px;
+		border-left: 4px solid var(--color-bronze);
+		background: var(--color-paper-light);
+	}
+
+	.community-telegram p {
+		margin: 0;
+	}
+
+	.community-telegram a {
+		overflow-wrap: anywhere;
+	}
+</style>
