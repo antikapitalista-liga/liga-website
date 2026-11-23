@@ -1,8 +1,10 @@
 ---
 import CurrentCategoryDescription from "./CurrentCategoryDescription.astro";
 import CurrentNews from "./CurrentNews.astro";
+import OverviewNavigation from "./OverviewNavigation.astro";
 import { esszek } from "../data/esszek";
 import { tarcak } from "../data/tarcak";
+import { tanulmanyok } from "../data/tanulmanyok";
 
 const categories = [
 	{
@@ -11,6 +13,13 @@ const categories = [
 		label: "Vélemény",
 		description: "Rövid állásfoglalások és gondolatok társadalmi, gazdasági és politikai kérdésekről.",
 		articles: [],
+	},
+	{
+		// A Tanulmány rovat a Vélemény és a Kisesszé között jelenik meg.
+		slug: "tanulmany",
+		href: "/magazin/tanulmany/",
+		label: "Tanulmány",
+		articles: tanulmanyok,
 	},
 	{
 		slug: "kisessze",
@@ -51,21 +60,18 @@ const categories = [
 		label: "Liga Szótár",
 		articles: [],
 	},
-	{
-		slug: "podcast",
-		href: "/magazin/podcast/",
-		label: "Podcast",
-		description: "Beszélgetések társadalmi, gazdasági és kulturális kérdésekről, több szempontból.",
-		articles: [],
-	},
 ];
 ---
-{categories.map((category) => (
-	<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
-		<h2 class="current-category-title" id={`${category.slug}-title`}>
-			<a href={category.href}>{category.label}</a>
-		</h2>
-		{category.description && <CurrentCategoryDescription text={category.description} />}
-		{category.articles.map((article) => <CurrentNews article={article} />)}
-	</section>
-))}
+<!-- A Magazin ugyanazt a rögzülő rovatnavigációt használja, mint az Aktuális. -->
+<OverviewNavigation title="Magazin" theme="magazine" categories={categories}>
+	<!-- Az eredeti rovatcímek továbbra is a saját aloldalukra vezetnek. -->
+	{categories.map((category) => (
+		<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
+			<h2 class="current-category-title" id={`${category.slug}-title`}>
+				<a href={category.href}>{category.label}</a>
+			</h2>
+			{category.description && <CurrentCategoryDescription text={category.description} />}
+			{category.articles.map((article) => <CurrentNews article={article} />)}
+		</section>
+	))}
+</OverviewNavigation>

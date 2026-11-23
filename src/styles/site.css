@@ -725,12 +725,6 @@ article > p:first-child {
 	margin: 0;
 }
 
-#alternativ-hirek,
-#part-hirek,
-#esemenyek {
-	scroll-margin-top: calc(var(--site-nav-height) + 12px);
-}
-
 @media (max-width: 1500px) {
 	body > nav {
 		left: 420px;

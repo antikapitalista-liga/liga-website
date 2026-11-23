@@ -2,6 +2,7 @@
 import type { Article } from "../data/aktualis";
 import ArticleByline from "./ArticleByline.astro";
 import ArticlePublisher from "./ArticlePublisher.astro";
+import ArticleDivider from "./ArticleDivider.astro";
 
 interface Props {
 	article: Article;
@@ -48,21 +49,8 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 		Közzététel dátuma: <time datetime={article.publishedAt}>{article.publishedLabel}</time>
 	</p>
 	<ArticlePublisher />
-	{linkTitle && (
-		<div class="article-divider" aria-hidden="true">
-			<svg class="divider-strand" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">
-				<path d="M2 10 C38 10 54 9 78 10 S130 11 158 10 S207 10 238 10" stroke-width="1" vector-effect="non-scaling-stroke" />
-				<path d="M2 6 C17 6 22 12 41 10 S66 8 82 10 M2 14 C15 14 24 8 41 10 S67 12 82 10" stroke-width=".7" vector-effect="non-scaling-stroke" />
-				<path d="M11 8 C28 8 33 12 50 10 M13 12 C30 12 35 8 50 10" stroke-width=".55" vector-effect="non-scaling-stroke" />
-			</svg>
-			<img class="divider-symbol" src="/antikapitalista-jelkep.png" alt="" width="378" height="639" />
-			<svg class="divider-strand divider-strand-right" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">
-				<path d="M2 10 C38 10 54 9 78 10 S130 11 158 10 S207 10 238 10" stroke-width="1" vector-effect="non-scaling-stroke" />
-				<path d="M2 6 C17 6 22 12 41 10 S66 8 82 10 M2 14 C15 14 24 8 41 10 S67 12 82 10" stroke-width=".7" vector-effect="non-scaling-stroke" />
-				<path d="M11 8 C28 8 33 12 50 10 M13 12 C30 12 35 8 50 10" stroke-width=".55" vector-effect="non-scaling-stroke" />
-			</svg>
-		</div>
-	)}
+	<!-- Az elválasztó a listázott cikkek után a közös grafikát használja. -->
+	{linkTitle && <ArticleDivider />}
 	{!linkTitle && (
 		<div class="article-share" data-pagefind-ignore data-article-share data-share-url={shareUrl} data-share-title={article.title} data-share-text={shareText}>
 			<button class="article-share-button" type="button" data-share-native hidden>Megosztás</button>
@@ -225,35 +213,6 @@ const imageAfterParagraph = article.imageAfterParagraph ?? article.paragraphs.le
 		max-width: 100%;
 		width: auto;
 		height: auto;
-	}
-
-	.article-divider {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		width: min(600px, 100%);
-		margin: 16px auto 0;
-		color: var(--color-gold-brown);
-	}
-
-	.divider-strand {
-		display: block;
-		flex: 1 1 0;
-		min-width: 0;
-		height: 20px;
-		position: relative;
-		top: 5px;
-	}
-
-	.divider-strand-right {
-		transform: scaleX(-1);
-	}
-
-	.divider-symbol {
-		display: block;
-		flex: none;
-		width: auto;
-		height: 52px;
 	}
 
 	.article-share {

@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import CurrentAnnouncement from "../components/CurrentAnnouncement.astro";
 import CurrentCategoryDescription from "../components/CurrentCategoryDescription.astro";
 import CurrentNews from "../components/CurrentNews.astro";
+import OverviewNavigation from "../components/OverviewNavigation.astro";
 import { aktualisCategories, articlesByCategory, getRecentArticles } from "../data/aktualis";
 ---
 
@@ -11,10 +12,8 @@ import { aktualisCategories, articlesByCategory, getRecentArticles } from "../da
 	description="Párthírek, hirdetmények, események és alternatív hírek az Antikapitalista Liga Magyarország oldalán."
 	theme="current"
 >
-	<header class="current-overview-header">
-		<h1 class="main-page-title">Aktuális</h1>
-	</header>
-	<main class="current-overview">
+	<!-- Az Aktuális rovatok a magazinnal közös fejléc alól, helyben navigálhatók. -->
+	<OverviewNavigation title="Aktuális" theme="current" categories={aktualisCategories}>
 		{aktualisCategories.map((category) => (
 			<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
 				<h2 class="current-category-title" id={`${category.slug}-title`}>
@@ -30,23 +29,12 @@ import { aktualisCategories, articlesByCategory, getRecentArticles } from "../da
 				)}
 			</section>
 		))}
-	</main>
+	</OverviewNavigation>
 </MainLayout>
 
 <style>
-	.current-overview-header h1 {
-		margin-bottom: 0;
-	}
-
-	.current-overview section:first-child h2 {
-		margin-top: 16px;
-	}
-
-	.current-overview h2 {
-		margin-bottom: 4px;
-	}
-
-	.current-overview section > p {
+	/* Az üres rovatok jelzése az Aktuális áttekintőjén megőrzi a korábbi térközét. */
+	section > p {
 		margin-top: 8px;
 	}
 </style>

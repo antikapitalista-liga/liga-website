@@ -5,27 +5,9 @@ import MagazineNavigation from "../../components/MagazineNavigation.astro";
 
 <MainLayout
 	title="Magazin | Antikapitalista Liga Magyarország"
-	description="Vélemények, kisesszék, tárcák, publicisztikák, rövid prózák és podcastok az Antikapitalista Liga Magyarország magazinjában."
+	description="Vélemények, tanulmányok, kisesszék, tárcák, publicisztikák és rövid prózák az Antikapitalista Liga Magyarország magazinjában."
 	theme="magazine"
 >
-	<header class="current-overview-header">
-		<h1 class="magazine-title">Magazin</h1>
-	</header>
-	<main class="current-overview">
-		<MagazineNavigation />
-	</main>
+	<!-- A közös rovatlista kezeli a fejlécet, a belső navigációt és a tartalmat. -->
+	<MagazineNavigation />
 </MainLayout>
-
-<style>
-	.current-overview-header h1 {
-		margin-bottom: 0;
-	}
-
-	.current-overview section:first-child h2 {
-		margin-top: 16px;
-	}
-
-	.current-overview h2 {
-		margin-bottom: 4px;
-	}
-</style>

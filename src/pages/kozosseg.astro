@@ -24,6 +24,19 @@ import MainLayout from "../layouts/MainLayout.astro";
 			<a href="https://t.me/+g7MYeKgt_2syODlk" target="_blank" rel="noopener noreferrer">https://t.me/+g7MYeKgt_2syODlk</a>
 		</p>
 	</aside>
+	<!-- A Podcast rovat a Közösség oldalára került; a korábbi szövegek változatlanok. -->
+	<section id="podcast" aria-labelledby="podcast-title">
+		<h2 id="podcast-title">Podcast</h2>
+		<p>Beszélgetések társadalmi, gazdasági és kulturális kérdésekről, több szempontból.</p>
+		<p>
+			Beszélgetések társadalmi, gazdasági és kulturális kérdésekről, közérthetően és több
+			szempontból megvizsgálva.
+		</p>
+		<p>
+			A podcastrovat készülőben van. Az első adások megjelenésekor itt lesznek elérhetők a
+			beszélgetések.
+		</p>
+	</section>
 </MainLayout>
 
 <style>
@@ -41,5 +54,10 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 	.community-telegram a {
 		overflow-wrap: anywhere;
+	}
+
+	/* A korábbi Podcast-címről érkezőket a fejléc alá irányítja. */
+	#podcast {
+		scroll-margin-top: calc(var(--site-nav-height) + 12px);
 	}
 </style>

@@ -1,0 +1,52 @@
+<!-- A díszítő elválasztó közös grafikája a cikkeknél és a magazin fejlécében is használható. -->
+<div class="article-divider" aria-hidden="true">
+	<svg class="divider-strand" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">
+		<path d="M2 10 C38 10 54 9 78 10 S130 11 158 10 S207 10 238 10" stroke-width="1" vector-effect="non-scaling-stroke" />
+		<path d="M2 6 C17 6 22 12 41 10 S66 8 82 10 M2 14 C15 14 24 8 41 10 S67 12 82 10" stroke-width=".7" vector-effect="non-scaling-stroke" />
+		<path d="M11 8 C28 8 33 12 50 10 M13 12 C30 12 35 8 50 10" stroke-width=".55" vector-effect="non-scaling-stroke" />
+	</svg>
+	<img class="divider-symbol" src="/antikapitalista-jelkep.png" alt="" width="378" height="639" />
+	<!-- A jobb oldali szálak külön rajzolatot és eltérő kiszálazódást kapnak. -->
+	<svg class="divider-strand divider-strand-right" viewBox="0 0 240 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-linecap="round">
+		<path d="M2 10 C31 10 57 11 86 10 S138 9 166 10 S212 10 238 10" stroke-width="1" vector-effect="non-scaling-stroke" />
+		<path d="M151 10 C174 11 189 8 207 9 S228 13 238 14 M164 10 C190 9 198 12 214 10 S230 7 238 5" stroke-width=".7" vector-effect="non-scaling-stroke" />
+		<path d="M183 10 C203 12 215 8 233 8 M193 10 C211 9 223 12 236 12 M210 10 C222 10 229 9 238 9" stroke-width=".55" vector-effect="non-scaling-stroke" />
+	</svg>
+</div>
+
+<style>
+	/* A közös elválasztó a rendelkezésre álló tartalmi szélességet kitölti. */
+	.article-divider {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		margin: 16px auto 0;
+		color: var(--color-gold-brown);
+	}
+
+	/* A magazin témájában az elválasztó a meglévő vörösbarna színt kapja. */
+	:global(.site-layout-magazine) .article-divider {
+		color: var(--color-magazine-deep);
+	}
+
+	.divider-strand {
+		display: block;
+		flex: 1.06 1 0;
+		min-width: 0;
+		height: 20px;
+		position: relative;
+		top: 5px;
+	}
+
+	.divider-strand-right {
+		flex-grow: 0.94;
+	}
+
+	.divider-symbol {
+		display: block;
+		flex: none;
+		width: auto;
+		height: 52px;
+	}
+</style>

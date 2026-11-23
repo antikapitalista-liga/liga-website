@@ -1,0 +1,43 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+import MagazineArticle from "../../../components/MagazineArticle.astro";
+import { tanulmanyok } from "../../../data/tanulmanyok";
+
+// Minden tanulmánynak a saját slugja alapján készül külön oldal.
+export function getStaticPaths() {
+	return tanulmanyok.map((article) => ({
+		params: { article: article.slug },
+		props: { article },
+	}));
+}
+
+const { article } = Astro.props;
+---
+
+<MainLayout
+	title={`${article.title} | Tanulmány | Magazin | Antikapitalista Liga Magyarország`}
+	description={article.subtitle}
+	socialImage={article.image}
+	theme="magazine"
+>
+	<!-- A fejlécből a Tanulmány rovat áttekintőjére lehet visszatérni. -->
+	<header class="current-category-header">
+		<h1 id="current-category-title">
+			Tanulmány
+			<a class="current-category-back" href="/magazin/tanulmany/" aria-label="Vissza a Tanulmány oldalára">↑↑</a>
+		</h1>
+	</header>
+	<main>
+		<!-- A közös cikkkomponens jeleníti meg a kiemelést, a szöveget és a képet. -->
+		<section aria-labelledby="current-category-title">
+			<MagazineArticle article={article} />
+		</section>
+	</main>
+</MainLayout>
+
+<style>
+	/* A fejléc térköze megegyezik a többi magazincikk oldaláéval. */
+	.current-category-header h1 {
+		margin-bottom: 0;
+	}
+</style>

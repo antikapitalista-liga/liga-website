@@ -1,0 +1,131 @@
+---
+import ArticleDivider from "./ArticleDivider.astro";
+
+interface Props {
+	title: string;
+	theme: "magazine" | "current";
+	categories: { slug: string; label: string }[];
+}
+
+const { title, theme, categories } = Astro.props;
+---
+
+<!-- A rögzülő fejléc linkjei ugyanazon áttekintő oldal rovatainak horgonyaira mutatnak. -->
+<header class="overview-header" style={`--overview-background: var(--color-${theme}-paper)`}>
+	<h1 class={theme === "magazine" ? "magazine-title" : "main-page-title"}>{title}</h1>
+	<nav class="overview-category-nav" aria-label={`${title} rovatok`}>
+		{categories.map((category) => <a href={`#${category.slug}`}>{category.label}</a>)}
+	</nav>
+	<ArticleDivider />
+</header>
+<!-- A hívó oldal a saját változatlan rovatlistáját illeszti az elválasztó alá. -->
+<main class="current-overview overview-content">
+	<slot />
+</main>
+
+<style>
+	/* A fejléc a fő navigáció alatt marad, és a középső oszlop széleiig takar. */
+	:global(.site-content) > .overview-header {
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		padding-bottom: 12px;
+		background: var(--overview-background);
+	}
+
+	.overview-header::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		inset: calc(-1 * var(--overview-scroll-offset, var(--site-nav-height))) -45px 0;
+		background: var(--overview-background);
+	}
+
+	.overview-header h1 {
+		margin-bottom: 0;
+	}
+
+	.overview-category-nav {
+		display: flex;
+		gap: 8px;
+		overflow-x: auto;
+		padding: 8px 0;
+		color: var(--color-rail);
+		font-family: "Crayon Libre", "Calibri Light", "Segoe UI Light", sans-serif;
+		font-size: 1rem;
+		text-transform: uppercase;
+	}
+
+	.overview-category-nav a {
+		flex: none;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.overview-category-nav a:hover,
+	.overview-category-nav a:focus-visible {
+		text-decoration: underline;
+	}
+
+	/* A rovatok a mért fejléc alá kerülnek, az utolsó is elegendő görgetési helyet kap. */
+	.overview-content > :global(section) {
+		scroll-margin-top: calc(var(--overview-scroll-offset, var(--site-nav-height)) + var(--overview-header-height, 200px) + 12px);
+	}
+
+	.overview-content > :global(section:last-child) {
+		min-height: max(0px, calc(100vh - var(--overview-nav-height, var(--site-nav-height)) - var(--overview-header-height, 200px) - 12px));
+	}
+
+	.overview-content > :global(section:first-child h2) {
+		margin-top: 16px;
+	}
+
+	.overview-content :global(h2) {
+		margin-bottom: 4px;
+	}
+
+	@media (max-width: 1100px) {
+		:global(.site-content) > .overview-header {
+			top: var(--overview-nav-height, var(--site-nav-height));
+		}
+
+		.overview-header::before {
+			right: -22px;
+			left: -22px;
+		}
+	}
+</style>
+
+<script>
+	// A két áttekintő fejlécének és a fő navigációnak a mérete határozza meg a görgetés eltolását.
+	const header = document.querySelector<HTMLElement>(".overview-header");
+	const siteNav = document.querySelector<HTMLElement>("body > .site-navigation");
+	const content = header?.closest<HTMLElement>(".site-content");
+	if (header && siteNav && content) {
+		const updateOffsets = () => {
+			content.style.setProperty("--overview-nav-height", `${siteNav.offsetHeight}px`);
+			content.style.setProperty("--overview-header-height", `${header.offsetHeight}px`);
+			const scrollOffset = window.matchMedia("(max-width: 1100px)").matches
+				? siteNav.offsetHeight
+				: parseFloat(getComputedStyle(content).paddingTop);
+			content.style.setProperty("--overview-scroll-offset", `${scrollOffset}px`);
+		};
+		const observer = new ResizeObserver(updateOffsets);
+		observer.observe(header);
+		observer.observe(siteNav);
+		updateOffsets();
+
+		// Közvetlen rovatlink esetén a betűk betöltése után is a fejléc alá igazítunk.
+		const initialHash = window.location.hash;
+		const initialSection = Array.from(document.querySelectorAll<HTMLElement>(".overview-content > section"))
+			.find((section) => `#${section.id}` === initialHash);
+		if (initialSection) {
+			document.fonts.ready.then(() => {
+				if (window.location.hash === initialHash) {
+					updateOffsets();
+					initialSection.scrollIntoView();
+				}
+			});
+		}
+	}
+</script>
