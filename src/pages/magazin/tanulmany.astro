@@ -2,6 +2,10 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import MagazineArticle from "../../components/MagazineArticle.astro";
 import { tanulmanyok } from "../../data/tanulmanyok";
+import { sortArticlesByDate } from "../../data/aktualis";
+
+// A tanulmányok listája mindig a legfrissebb megjelenéssel kezdődik.
+const tanulmanyokInDateOrder = sortArticlesByDate(tanulmanyok);
 ---
 
 <MainLayout
@@ -19,7 +23,7 @@ import { tanulmanyok } from "../../data/tanulmanyok";
 	<main>
 		<!-- A tanulmányok teljes szövege a többi magazinrovattal azonos formában jelenik meg. -->
 		<section aria-labelledby="current-category-title">
-			{tanulmanyok.map((article) => <MagazineArticle article={article} linkTitle />)}
+			{tanulmanyokInDateOrder.map((article) => <MagazineArticle article={article} linkTitle />)}
 		</section>
 	</main>
 </MainLayout>

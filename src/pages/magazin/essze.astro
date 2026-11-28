@@ -2,11 +2,15 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import MagazineArticle from "../../components/MagazineArticle.astro";
 import { esszek } from "../../data/esszek";
+import { sortArticlesByDate } from "../../data/aktualis";
+
+// A kisesszék listáján a legutóbb megjelent írás kerül legfelülre.
+const essaysInDateOrder = sortArticlesByDate(esszek);
 ---
 
 <MainLayout
 	title="Kisesszé | Magazin | Antikapitalista Liga Magyarország"
-	description={esszek[0].subtitle}
+	description={essaysInDateOrder[0].subtitle}
 	theme="magazine"
 >
 	<header class="current-category-header">
@@ -17,7 +21,7 @@ import { esszek } from "../../data/esszek";
 	</header>
 	<main>
 		<section aria-labelledby="current-category-title">
-			{esszek.map((article) => <MagazineArticle article={article} linkTitle />)}
+			{essaysInDateOrder.map((article) => <MagazineArticle article={article} linkTitle />)}
 		</section>
 	</main>
 </MainLayout>

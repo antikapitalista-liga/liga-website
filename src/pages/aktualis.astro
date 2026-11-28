@@ -4,7 +4,20 @@ import CurrentAnnouncement from "../components/CurrentAnnouncement.astro";
 import CurrentCategoryDescription from "../components/CurrentCategoryDescription.astro";
 import CurrentNews from "../components/CurrentNews.astro";
 import OverviewNavigation from "../components/OverviewNavigation.astro";
-import { aktualisCategories, articlesByCategory, getRecentArticles } from "../data/aktualis";
+import {
+	aktualisCategories,
+	articlesByCategory,
+	getRecentArticles,
+	sortCategoriesByLatestArticle,
+} from "../data/aktualis";
+
+// Az Aktuális áttekintőjén a legfrissebb írást tartalmazó rovat kerül a lap tetejére.
+const categoriesInDateOrder = sortCategoriesByLatestArticle(
+	aktualisCategories.map((category) => ({
+		...category,
+		articles: articlesByCategory[category.slug] ?? [],
+	})),
+);
 ---
 
 <MainLayout
@@ -13,18 +26,18 @@ import { aktualisCategories, articlesByCategory, getRecentArticles } from "../da
 	theme="current"
 >
 	<!-- Az Aktuális rovatok a magazinnal közös fejléc alól, helyben navigálhatók. -->
-	<OverviewNavigation title="Aktuális" theme="current" categories={aktualisCategories}>
-		{aktualisCategories.map((category) => (
+	<OverviewNavigation title="Aktuális" theme="current" categories={categoriesInDateOrder}>
+		{categoriesInDateOrder.map((category) => (
 			<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
 				<h2 class="current-category-title" id={`${category.slug}-title`}>
 					<a href={`/aktualis/${category.slug}/`}>{category.label}</a>
 				</h2>
 				{category.description && <CurrentCategoryDescription text={category.description} />}
 				{category.slug === "hirdetmenyek" && <CurrentAnnouncement />}
-				{getRecentArticles(articlesByCategory[category.slug] ?? []).map((article) => (
+				{getRecentArticles(category.articles).map((article) => (
 					<CurrentNews article={article} />
 				))}
-				{!articlesByCategory[category.slug]?.length && category.slug !== "hirdetmenyek" && category.slug !== "part-hirek" && (
+				{!category.articles.length && category.slug !== "hirdetmenyek" && category.slug !== "part-hirek" && (
 					<p>A rovat írásai hamarosan itt lesznek elérhetők.</p>
 				)}
 			</section>

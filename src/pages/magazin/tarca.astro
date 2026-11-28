@@ -2,6 +2,10 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import MagazineArticle from "../../components/MagazineArticle.astro";
 import { tarcak } from "../../data/tarcak";
+import { sortArticlesByDate } from "../../data/aktualis";
+
+// A tárcák dátum szerint csökkenő sorrendben jelennek meg.
+const tarcakInDateOrder = sortArticlesByDate(tarcak);
 ---
 
 <MainLayout
@@ -17,10 +21,10 @@ import { tarcak } from "../../data/tarcak";
 	</header>
 	<main>
 		<section aria-labelledby="current-category-title">
-			{tarcak.length === 0 ? (
+			{tarcakInDateOrder.length === 0 ? (
 				<p>A rovat készülőben van.</p>
 			) : (
-				tarcak.map((article) => <MagazineArticle article={article} linkTitle />)
+				tarcakInDateOrder.map((article) => <MagazineArticle article={article} linkTitle />)
 			)}
 		</section>
 	</main>

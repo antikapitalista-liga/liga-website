@@ -140,6 +140,29 @@ export function sortArticlesByDate(articles: readonly Article[]): Article[] {
 	return [...articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
+// Áttekintő oldalakon a legfrissebb cikket tartalmazó rovat kerül előre, az üresek pedig hátra.
+export function sortCategoriesByLatestArticle<Category extends { slug: string; articles: readonly Article[] }>(
+	categories: readonly Category[],
+): Category[] {
+	const categoryOrder = new Map<string, number>();
+	const latestDateByCategory = new Map<string, string>();
+
+	categories.forEach((category, index) => {
+		categoryOrder.set(category.slug, index);
+		latestDateByCategory.set(
+			category.slug,
+			sortArticlesByDate(category.articles)[0]?.publishedAt ?? "",
+		);
+	});
+
+	return [...categories].sort((left, right) => {
+		const dateOrder = (latestDateByCategory.get(right.slug) ?? "").localeCompare(
+			latestDateByCategory.get(left.slug) ?? "",
+		);
+		return dateOrder || (categoryOrder.get(left.slug) ?? 0) - (categoryOrder.get(right.slug) ?? 0);
+	});
+}
+
 export function getRecentArticles(articles: readonly Article[], limit = 5): Article[] {
 	return sortArticlesByDate(articles).slice(0, limit);
 }

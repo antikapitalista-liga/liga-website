@@ -5,6 +5,7 @@ import OverviewNavigation from "./OverviewNavigation.astro";
 import { esszek } from "../data/esszek";
 import { tarcak } from "../data/tarcak";
 import { tanulmanyok } from "../data/tanulmanyok";
+import { sortArticlesByDate, sortCategoriesByLatestArticle } from "../data/aktualis";
 
 const categories = [
 	{
@@ -61,17 +62,20 @@ const categories = [
 		articles: [],
 	},
 ];
+
+// A magazin rovatai és a bennük megjelenő írások is dátum szerint, legújabbtól követik egymást.
+const categoriesInDateOrder = sortCategoriesByLatestArticle(categories);
 ---
 <!-- A Magazin ugyanazt a rögzülő rovatnavigációt használja, mint az Aktuális. -->
-<OverviewNavigation title="Magazin" theme="magazine" categories={categories}>
+<OverviewNavigation title="Magazin" theme="magazine" categories={categoriesInDateOrder}>
 	<!-- Az eredeti rovatcímek továbbra is a saját aloldalukra vezetnek. -->
-	{categories.map((category) => (
+	{categoriesInDateOrder.map((category) => (
 		<section id={category.slug} aria-labelledby={`${category.slug}-title`}>
 			<h2 class="current-category-title" id={`${category.slug}-title`}>
 				<a href={category.href}>{category.label}</a>
 			</h2>
 			{category.description && <CurrentCategoryDescription text={category.description} />}
-			{category.articles.map((article) => <CurrentNews article={article} />)}
+			{sortArticlesByDate(category.articles).map((article) => <CurrentNews article={article} />)}
 		</section>
 	))}
 </OverviewNavigation>
